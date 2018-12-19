@@ -1,4 +1,4 @@
-# 181218 수업정리
+# 181218 summary
 
 ## 1. 개발 환경 설정
 
@@ -260,3 +260,15 @@ print(sorted(real_numbers))
 ```
 
 requests는 기본 내장된 함수가 아니므로 터미널에서 pip install requests를 입력해서 다운받는다.
+
+## git
+
+git init : 초기화
+
+git add . : 버전 추가
+
+git commit
+
+git push
+
+git status :상태 확인
