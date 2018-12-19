@@ -36,7 +36,7 @@ elif match_numbers == 5:
 elif match_numbers == 4:
     print("4등")
 elif match_numbers ==3:
-    print("3등")
+    print("5등")
 else:
     print("꼴등")
 
