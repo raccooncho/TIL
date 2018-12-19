@@ -267,8 +267,10 @@ git init : 초기화
 
 git add . : 버전 추가
 
-git commit
+git commit -m '할말' : git에 정식등록
 
 git push
 
-git status :상태 확인
+git status : 상태 확인
+
+git log : 등록된거 확인
