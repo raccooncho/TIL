@@ -1,6 +1,7 @@
 import random
 import requests
 
+
 url = 'https://www.nlotto.co.kr/common.do?method=getLottoNumber&drwNo=837'
 
 response = requests.get(url, verify = False)
@@ -16,11 +17,7 @@ for key in lotto_data:
 
 bonus_number = lotto_data['bnusNo']
 print("금주의 당첨번호는", real_numbers, "입니다.", "보너스 번호는", bonus_number, "입니다.")
-numbers = list(range(1, 46))
 
-my_numbers = random.sample(numbers, 6)
-
-print("나의 번호는", sorted(my_numbers), "입니다.")
 
 set_my_numbers = set(my_numbers)
 set_real_numbers = set(real_numbers)
@@ -40,5 +37,39 @@ elif match_numbers ==3:
 else:
     print("꼴등")
 
+# count = 0
+# while match_numbers:
+#     if match_numbers < 6:
+#         count += 1
+#     else:
+#         print("당첨입니다. 산 복권은", count, "장 입니다.")
 
-        
+
+# count1 = 0   # 교수님 정답 1
+# for my_number in my_numbers:
+#     for real_number in real_numbers:
+#         if my_number == real_number:
+#             count += 1
+# print(count1)
+
+# if count1 == 6:
+#     print(1)
+# elif count1 == 5 and bonus in my_numbers:
+#     print(2)
+# elif count1 == 5:
+#     print(3)
+
+
+# list = [1, 2, 3]
+# set = {1, 2, 3}
+# tuple = (1, 2, 3)
+
+match_count = len(my_numbers % real_numbers)
+print(match_count)
+
+if match_count == 6:
+    print('1등')
+elif match_count == 5 and bonus in my_numbers:
+    print('2등')
+
+
