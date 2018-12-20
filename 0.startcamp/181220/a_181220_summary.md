@@ -41,7 +41,7 @@ elif count == 5:
 * 파이썬용 정답 (set기능 이용)
 
 ```python
-match_count = len(my_numbers & real_numbers)
+match_count = len(my_numbers & real_numbers) # 교수님 정답 2
 print(match_count)
 
 if match_count == 6:
@@ -148,8 +148,8 @@ because
 
 ```python
 def get_lotto(draw_no):  # num 은 int이므로 str로 변경해줘야 url로 읽을 수 있음
-    url = 'https://www.nlotto.co.kr/common.do?method=getLottoNumber&drwNo='+str(draw_no)
-    response = requests.get(url, verify = False)
+    url = 'https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo='+str(draw_no)
+    response = requests.get(url, verify = False) #verify = False는 인증서 오류 사라지면 삭제
     lotto_data = response.json()
     numbers = []
     for key, value in lotto_data.items():
@@ -207,6 +207,39 @@ am_i_lucky(pick_lotto(), get_lotto(1)) # 이걸로 1회차 로또 번호를 요�
 
 
 
+* am_i_lucky(a,b) 함수 수정한 것 (print를 return으로 수정) # print는 (주로)디버깅 체크용으로만 쓰임
+
+```python
+def am_i_lucky(pick_num, draw_no): # 가능하면 print를 함수 안에 넣지 말기!
+    real_num = get_lotto(draw_no)
+    match_number = len(set(pick_num) & set(real_num['numbers']))
+    if match_number == 6:
+        return(pick_num, draw_no, real_num['numbers'], real_num['bonus'], match_number, '1등')
+    elif match_number == 5 and bonus in pick_num:
+        return(pick_num, draw_no, real_num['numbers'], real_num['bonus'], match_number, '2등')
+    elif match_number == 5:
+        return(pick_num, draw_no, real_num['numbers'], real_num['bonus'], match_number, '3등')
+    elif match_number == 4:
+        return(pick_num, draw_no, real_num['numbers'], real_num['bonus'], match_number, '4등')
+    elif match_number == 3:
+        return(pick_num, draw_no, real_num['numbers'], real_num['bonus'], match_number, '5등')
+    else:
+        return(pick_num, draw_no, real_num['numbers'], real_num['bonus'], match_number, '꼴등')
+```
+
+```python
+WYL = am_i_lucky(pick_lotto(), 10)
+print(" 당신의 번호는", WYL[0], "입니다.\n", WYL[1], "회차의 당첨 번호는", WYL[2], "이고,\n", 
+        "2등 보너스 번호는", WYL[3], "입니다.\n", "맞은 갯수는", WYL[4], "개 입니다.\n", "당신은", WYL[5], "입니다.") # 이렇게 출력 하면
+ 당신의 번호는 [21, 18, 19, 1, 42, 7] 입니다.
+ 10 회차의 당첨 번호는 [9, 25, 30, 33, 41, 44] 이고,
+ 2등 보너스 번호는 6 입니다.
+ 맞은 갯수는 0 개 입니다.
+ 당신은 꼴등 입니다. # 이렇게 출력 된다.
+```
+
+
+
 * arg
 
 ```python
@@ -215,3 +248,92 @@ real_numbers = get_lotto(3) # 3에 들어가는 부분은 arg (arguments)로 부
 
 
 
+## 3. 함수 import
+
+### math_functions 파일을 형성한다
+
+```python
+def avg(numbers):
+    return sum(numbers) / len(numbers)
+
+def cube(x):
+    return x * x * x
+
+my_score = [79, 84, 66, 93]
+print(avg(my_score))
+print(cube(3))
+print(3 ** 3)
+```
+
+### 이걸 do_math 파일에 import하면
+
+```python
+print('program start!')
+print('--------------------')
+import math_functions
+print('importing finished') # 어디서 import됬는지 확인하기 위한 용도로 임시로 해봤다.
+
+print(math_functions.cube(5))
+print(math_functions.avg([10, 20, 30]))
+```
+
+```python
+program start!
+--------------------
+80.5
+27                    # import 된 파일의 print 내용도 같이 가져왔다
+27
+importing finished
+125                   # 여기부터 본래 파일이 진행된다.
+20.0
+```
+
+### 그래서 함수만 import하면
+
+```python
+print('program start!')
+print('--------------------')
+from math_functions import cube, avg
+print('importing finished')
+
+print(cube(5))
+print(avg([10, 20, 30]))
+```
+
+```python
+program start!
+--------------------
+80.5
+27
+27
+importing finished
+125
+20.0
+```
+
+그래도 import한 함수의 내용이 같이 딸려 온다.
+
+### 그럼 math_functions 파일에 새로운 함수를 지정해서 print될 내용을 삽입한다
+
+```python
+def main():
+    my_score = [79, 84, 66, 93]
+    print(avg(my_score))
+    print(cube(3))
+    print(3 ** 3)
+
+if __name__ == '__main__':     # ...?
+    main()
+```
+
+then,
+
+```python
+program start!
+--------------------
+importing finished
+125
+20.0
+```
+
+원하는 것만 출력 된다.

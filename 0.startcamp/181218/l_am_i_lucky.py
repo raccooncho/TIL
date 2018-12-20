@@ -1,10 +1,15 @@
 import random
 import requests
 
+numbers = list(range(1, 46))
 
-url = 'https://www.nlotto.co.kr/common.do?method=getLottoNumber&drwNo=837'
+my_numbers = random.sample(numbers, 6)
 
-response = requests.get(url, verify = False)
+print(sorted(my_numbers))
+
+url = 'https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=837'
+
+response = requests.get(url)
 response.text # 이건 class가 str임
 response.json() # 이게 dict임 이걸 data라고 부름
 lotto_data = response.json()
@@ -37,12 +42,25 @@ elif match_numbers ==3:
 else:
     print("꼴등")
 
-# count = 0
-# while match_numbers:
-#     if match_numbers < 6:
-#         count += 1
-#     else:
-#         print("당첨입니다. 산 복권은", count, "장 입니다.")
+count = 0
+check = False
+while (True):
+    if match_numbers == 0:
+        count += 1
+    elif match_numbers == 1:
+        count += 1
+    elif match_numbers == 2:
+        count += 1
+    elif match_numbers == 3:
+        count += 1
+    elif match_numbers == 4:
+        count += 1
+    elif match_numbers == 5:
+        count += 1
+    else:
+        check = True
+        print("당첨입니다. 산 복권은", count, "장 입니다.")
+        break
 
 
 # count1 = 0   # 교수님 정답 1
@@ -64,12 +82,12 @@ else:
 # set = {1, 2, 3}
 # tuple = (1, 2, 3)
 
-match_count = len(my_numbers % real_numbers)
-print(match_count)
+# match_count = len(my_numbers % real_numbers)
+# print(match_count)
 
-if match_count == 6:
-    print('1등')
-elif match_count == 5 and bonus in my_numbers:
-    print('2등')
+# if match_count == 6:
+#     print('1등')
+# elif match_count == 5 and bonus in my_numbers:
+#     print('2등')
 
 
