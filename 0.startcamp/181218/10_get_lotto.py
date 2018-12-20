@@ -1,8 +1,8 @@
 import requests
 
-url = 'https://www.nlotto.co.kr/common.do?method=getLottoNumber&drwNo=837'
+url = 'https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=837'
 
-response = requests.get(url, verify = False)
+response = requests.get(url)
 response.text # 이건 class가 str임
 response.json() # 이게 dict임 이걸 data라고 부름
 lotto_data = response.json()

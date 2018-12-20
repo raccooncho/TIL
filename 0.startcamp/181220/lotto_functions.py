@@ -12,8 +12,8 @@ print(pick_lotto())
 # real_numbers = get_lotto()
 
 def get_lotto(draw_no):
-    url = 'https://www.nlotto.co.kr/common.do?method=getLottoNumber&drwNo='+str(draw_no)
-    response = requests.get(url, verify = False)
+    url = 'https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo='+str(draw_no)
+    response = requests.get(url)
     lotto_data = response.json()
     numbers = []
     for key, value in lotto_data.items():
@@ -32,15 +32,16 @@ print(real_numbers)
 
 # result = am_i_lucky(my_numbers, real_numbers)
 
-def am_i_lucky(pick_num, real_num):
+def am_i_lucky(pick_num, draw_no):
+    real_num = get_lotto(draw_no)
     match_number = len(set(pick_num) & set(real_num['numbers']))
     print("당신의 번호는", pick_num, "입니다.")
-    print("선택하신 회차의 당첨 번호는", real_num['numbers'], "이고,")
+    print(draw_no, "회차의 당첨 번호는", real_num['numbers'], "이고,")
     print("2등 보너스 번호는", real_num['bonus'], "입니다")
     print("맞은 갯수는", match_number, "개 입니다.")
     if match_number == 6:
         print("당신은 1등입니다")
-    elif match_number == 5 and bonus in a:
+    elif match_number == 5 and bonus in pick_num:
         print("당신은 2등입니다")
     elif match_number == 5:
         print("당신은 3등입니다")
@@ -51,5 +52,5 @@ def am_i_lucky(pick_num, real_num):
     else:
         print("당신은 꼴등입니다")
 
-am_i_lucky(pick_lotto(), get_lotto(1)) # print() 함수가 am_i_lucky()함수 안에 내장되어 있음
+am_i_lucky(pick_lotto(), 24) # print() 함수가 am_i_lucky()함수 안에 내장되어 있음
 
