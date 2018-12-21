@@ -337,3 +337,58 @@ importing finished
 ```
 
 원하는 것만 출력 된다.
+
+## 4. Flask
+
+* installing Flask
+  * $pip3 install flask
+
+  * 안되면 $sudo pip3 install flask (sudo는 최고 관리자 명령어)
+
+  * $export FLASK_APP=app.py (app.py는 생성한 파일 명)
+
+  * from flask import Flask
+
+  * app = Flask(__name__)
+
+  * @app.route("/")
+
+  * def index():
+
+    ​	return 'Happy Hacking'
+
+  * $flask run -h 0.0.0.0 -p 8080
+
+  * http://0.0.0.0:8080/ 누르면 새 url이 됨
+
+  * $export FLASK_ENV='development'
+
+  * $python3 app.py
+
+  ```python
+  from flask import Flask, jsonify # jsonify는 list나 dict의 호환성을 높여줌
+  from random import sample
+  app = Flask(__name__)
+  
+  @app.route("/")  # 새 주소 추가하는 용도
+  def index():
+      return 'Happy Hacking'
+      
+  @app.route("/hi")
+  def hi():
+      return 'Hello SSAFY'
+      
+  @app.route('/pick_lotto')
+  def pick_lotto():
+      return jsonify(sorted(sample(range(1, 46), 6)))
+      
+  @app.route('/get_lotto')
+  def get_lotto():
+      data = {
+          'numbers': [1, 2, 3, 4, 5, 6],
+          'bonus': 7
+      }
+      return jsonify(data)
+  ```
+
+
