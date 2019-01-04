@@ -244,5 +244,44 @@ for i in range(1, 13):
 
 ### 1. command line interface
 
+#### ls ( in bash ) = dir ( in cmd ) = user -> student ( in 탐색기, ssafy 컴퓨터의 경우 )
+
+* 파일 디렉토리를 보여 준다.
+* ls = list, dir = directory
+
+#### pwd ( in bash )
+
+* 현재 위치 ( /C/Users/student)
+  * / 는 내 PC이다.
+
+#### ls -a  == ls --all ( in bash )
+
+* 숨김파일까지 모두 보여준다.
+
+* 앞에 .이 붙어있으면 숨김파일이다. (유닉스에서만 지원하고 윈도우에선 지원해주지 않는 기능이다.)
+
+#### cd () ( in bash )
+
+* () 에 입력한 폴더로 이동한다.
+* cd .. 은 상위 폴더로 이동이다.
+
+#### mkdir classroom ( in bash )
+
+* classroom 이란 이름의 폴더가 형성된다.
+
+#### touch classmate.txt ( in bash )
+
+* classmate.txt란 이름의 메모장이 형성된다.
+* touch a.txt b.txt c.txt d.py e.py  이거처럼 여러 파일을 동시에 만들 수 있다.                                                                                                  
+
+#### vim classmate.txt ( in bash )
+
+* 메모장을 수정하로 간다
+* esc키를 눌러야 커맨드를 입력할 수 있다.
+* dd가 삭제다
+* :w 저장
+* :q 나가기
+* i 입력
+
 
 
