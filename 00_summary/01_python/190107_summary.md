@@ -41,7 +41,7 @@ count = 0
 
 for month, end_date in months_end.items():
     print(month, '월')
-    print('|', end='')
+    print(' ', end='')
     for yoil in weeks:
         print(yoil, end=' | ')
     print()
@@ -190,13 +190,144 @@ fib_loop(3300) # ㅁ ㅐ ㅇ ㅜ ㅋ ㅡ ㄴ ㅅ ㅜ
   * ex) 치킨쿠폰 3장을 모으면 한마리를 줍니다. 한마리를 시키면 한장을 줍니다. n장이 있을 때, 몇 마리까지 먹을 수 있을 까요? ex) 10장: 7장 + 1장 => 5장 + 1장 =>....
 
 ```python
-def chicken_coupon(n, base):
-    c = n // base
+def chicken_coupon(n):  # 기본형
+    c = n // 3
+    if n < 3:
+        return c
+    else:
+        c = c + chicken_coupon(c + n%3)
+        return c
+```
+
+```python
+def chicken_coupon(n, base=3):  # n은 쿠폰의 갯수 # base는 치킨 한마리를 살때 필요한 쿠폰의 갯수
+    c = n // base  # c는 쿠폰으로 산 치킨의 갯수
     if n < base:
         return c
     else:
-        c = c + chicken_coupon(c + n%base, base)  # 뒤의 base도 입력해줘야함.
-        return c
+        c = c + chicken_coupon(c + n%base)  # 뒤의 base도 입력해줘야함.
+        return c  # c + n%base는 처음 쿠폰으로 치킨을 사고 남은 쿠폰의 갯수 (n%base)와 새로 치킨을 사면서 생긴 쿠폰의 갯수(n)합으로서 현재 가지고있는 총 쿠폰의 갯수를 의미함.
+```
+
+* 예제 5 : 개미수열(Look and Say)
+
+  * 숫자를 세어서 몇개인지 말해요
+
+  ```
+  n = 1
+  [1]
+  n = 2
+  [1, 1]
+  n = 3
+  [1, 2]
+  n = 4
+  [1, 1, 2, 1]
+  .
+  .
+  .
+  ```
+
+```python
+def look_say(n):  # 극 고통;;  # 내 풀이
+    count = 1
+    if n == 1:
+        return [1]
+    elif n >= 2:
+        result = [1]
+        loook = look_say(n-1)
+        while len(loook) >= 2:
+            if loook[0] == loook[1]:
+                count += 1
+            elif loook[0] != loook[1]:
+                result.append(count)
+                result.append(loook[1])
+                count = 1
+            loook.remove(loook[0])
+        if result[-1] == loook[0]:
+            result.append(count)
+        else:
+            result.append(count)
+            count = 1
+            result.append(loook[0])
+            result.append(count)
+        loook.remove(loook[0])
+        return result
+```
+
+```python
+def look_say(n):  # 고재두님답
+    if n == 0:
+        return [1]
+    else:
+        result = []
+        my_list = look_say(n-1)
+        temp = my_list[0]
+        count = 0
+        for i in my_list:
+            if i == temp:
+                count += 1
+            else:
+                result.append(temp)
+                result.append(count)
+                count = 1
+            temp = i
+        else:
+            result.append(temp)
+            result.append(count)
+        return result
+```
+
+```python
+def look_say(n, remain=[1], result=[]):  # 교수님답.
+    if n == 0:
+        return remain
+    look = remain[0]
+    say = 0
+    for index, number in enumerate(remain):
+        if number == look: # 보던 애가 계속 나오면
+            say += 1
+        else: # 못 보던 애가 나오면
+            del(remain[0:index])
+            break
+    else:        # start앞을 버린다.
+        remain = []
+    result = result + [look, say]
+        # result뒤에 look과 say를 붙인다.
+    if not remain:
+        return look_say(n-1, result, [])
+        # remain이 비어있다면
+        # return look_say(n-1, ,)
+    else:
+        return look_say(n, remain, result)
+        #remain이 남아 있다면
+        #return look_say(n, ,)
+        
+        
+           
+```
+
+```python
+def look_say(n):  # 강진우님 답  # 이건 진심 하나도 모르겠음ㅁㅁㅁㅁ
+    if n == 0:
+        return [1]
+    else:
+        list_1 = look_say(n-1)
+        list_2 = []
+        number = 0
+        num_cnt = 0
+        i = 0
+        while i < len(list_1):
+            if number != list_1[i]:
+                if i != 0:
+                    list_2.append(num_cnt)
+                list_2.append(list_1[i])
+                number = list_1[i]
+                num_cnt = 1
+            else:
+                num_cnt += 1
+            i += 1
+        list_2.append(num_cnt)
+        return list_2
 ```
 
 
@@ -206,6 +337,199 @@ def chicken_coupon(n, base):
   * 옮기려는 기둥에는 아무것도 없거나 옮기려는 층보다 큰 층이 있을 경우에만 옮길 수 있다.
   * 옮기려는 기둥에 옮기려는 층보다 작은 층이 이미 있을 경우 그 기둥으로 옮길 수 없다.
   * 가능한 적은 횟수로 전체 탑을 다른 기둥으로 옮긴다.
+
+```python
+# 이건 나중에 풀어 봅 시 다ㅏㅏㅏㅏㅏㅏ
+```
+
+
+
+### 2. 문자열 메소드 활용하기
+
+##### 변형
+
+* .capitalize(), .title(), .upper()
+  * .capitalize() : 앞글자를 대문자로 만들어 반환한다.
+  * .title() : 어퍼스트로피나 공백 이후를 대문자로 만들어 반환한다.
+  * .upper() : 모두 대문자로 만들어 반환한다.
+
+```python
+greeting = 'hI! EveryOne, I\'m ssafy'
+print(greeting)  # hI! EveryOne, I'm ssafy
+print(greeting.capitalize())  # Hi! everyone, i'm ssafy  -> 첫글자 제외 전부 소문자됨
+print(greeting.title())  # Hi! Everyone, I'M Ssafy  -> 공백이나 ' 뒤의 문자 전부 대문자되고 나머진 모두 소문자됨
+print(greeting.upper())  # HI! EVERYONE, I'M SSAFY  -> 모두 대문자 됨
+```
+
+
+
+* .lower(), .swapcase()
+  * .lower() : 모두 소문자로 만들어 반환한다.
+  * .swapcase() : 대 <-> 소문자로 변경하여 반환한다.
+
+```python
+print(greeting.lower())  # hi! everyone, i'm ssafy  -> 전부 소문자 됨
+print(greeting.swapcase())  # Hi! eVERYoNE, i'M SSAFY  -> 소문자와 대문자가 서로 바뀜
+```
+
+
+
+* .join(iterable)
+  * 특정한 문자열로 만들어 반환한다.
+
+```python
+'!'.join('아파요')  # 아!파!요  -> 글자 사이사이에 끼어들음
+feelings = ['아파요', '어려워요', '힘들어요', '죽겠다']
+print('으악!'.join(feelings))  # 아파요으악!어려워요으악!힘들어요으악!죽겠다  -> 리스트에선 요소 사이사이에 끼어들음
+```
+
+
+
+* replace(old, new[, count])
+  * 바꿀 대상 글자를 새로운 글자로 바꿔서 반환한다.
+  * count를 지정하면 해당 갯수만큼만 시행한다.
+
+```python
+print('갑분싸'.replace('싸', 'ssa'))  # 갑분ssa
+print('aa너무 즐거워요aa'.replace('a', 'ㅠ'))  # ㅠㅠ너무 즐거워요ㅠㅠ
+```
+
+
+
+* 글씨 제거 (strip([chars]))
+  * 특정한 문자들을 지정하면, 양쪽을 제거하거나 왼쪽을 제거하거나 (lstrip) 오른쪽을 제거한다.(rstrip)
+  * 지정하지 않으면 공백을 제거한다.
+
+```python
+print('           recursive!\n'.strip())  # recursive!  -> 설정하지 않으면 공백이 제거됨
+print('           recursive!\n\t'.lstrip())  # recursive!  -> 왼쪽의 공백만 제거됨
+```
+
+
+
+##### 탐색 및 검증
+
+* .find(x) 
+  * x의 첫 번째 위치를 반환한다. 없으면, -1을 반환한다.
+
+```python
+'apple'.find('p')  # 1  -> p의 위치를 찾아서 알려준다.
+'apple'.find('f')  # -1  -> f가 없어서 -1로 알려준다.
+```
+
+
+
+* .index(x)
+  * x의 첫 번째 위치를 반환한다. 없으면 오류가 뜬다.
+
+```python
+'apple'.index('p')  # 1 -> p의 위치를 찾아서 알려준다.
+'apple'.index('f')  # 에러 -> 없으면 에러가 나온다.
+```
+
+
+
+* 다양한 확인 메소드 : True / False 반환
+  * .isaplha(), .isdecimal(), .isdigit(), .isnumeric(), .isspace(), .issuper(), .istitle(), .islower()
+
+
+
+##### split()
+
+* 문자열을 특정한 단위로 나누어 리스트로 반환한다.
+
+```python
+'a_b_c'.split('_')  # ['a', 'b', 'c']  -> _을 기준으로 문자를 자른다.
+```
+
+
+
+
+
+## 3. 리스트 메소드 활용하기
+
+##### 값 추가 및 삭제
+
+* .append(x)
+  * 리스트에 값을 추가할 수 있다.
+* .extend(iterable)
+  * 리스트에 iterable(list, range, tuple, string) 값을 붙일 수가 있다.
+* insert(i, x)
+  * 정해진 위치 i에 값을 추가한다.
+* remove(x)
+  * 리스트에서 값이 x인것을 삭제한다.
+* .pop(i)
+  * 정해진 위치 i에 있는 값을 삭제하고 그 항목을 반환한다.
+  * i가 지정되지 않으면 마지막 항목을 삭제하고 반환한다.
+
+##### 탐색 및 정렬
+
+* .index(x)
+  * 원하는 값을 찾아 index값을 반환한다.
+* .count(x)
+  * 원하는 값의 갯수를 확인할 수 있다.
+*  .sort()
+  * 정렬한다.
+  * sorted()와 다르게 원본 list를 변형시키고 None을 리턴한다.
+* .reverse()
+  * 반대로 뒤집는다. (정렬아님)
+
+##### 복사
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+```python
+
+```
+
+* 파이썬에서 모든 변수는 객체의 주소를 가지고 있을 뿐이다.
+
+  num = [1, 2, 3]
+
+  * 위와 같이 변수를 생성하면 num이라는 객체를 생성하고, 변수에는 객체의 주소가 저장된다.
+  * 변경가능한 (mutable) 자료형과 변경불가능한 (immutable) 자료형은 서로 다르게 동작한다.
+
+* 복사를 하고 싶을 때에는 다음과 같이 해야 한다.
+
+``` python
+
+```
+
+```python
+
+```
+
+
+
+```python
+
+```
+
+
+
+```python
+
+```
+
+
+
+##### 삭제 clear()
+
+* 리스트의 모든 항목을 삭제한다.
 
 ```python
 
