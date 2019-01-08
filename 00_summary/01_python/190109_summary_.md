@@ -136,13 +136,27 @@ def collatz(num):  # 교수님 답
   ```
 
 ```python
-def lonely(lists):
+def lonely(lists):  # 내 답 
     tlist = []
     for i in lists:
         if i not in tlist:
             tlist.append(i)
     return tlist
 ```
+
+```python
+def lonely(numbers):  # 교수님 답
+    result = []
+    for number in numbers:
+        if not result:
+            result.append(number)
+        elif result[-1] != number:
+            if result.count(number) == 0:
+                result.append(number)
+    return result
+```
+
+
 
 * quiz 5. (hard) RGB 삼각형
 
@@ -197,7 +211,7 @@ def triange(RGB):  # 삼각형 그리기 ( no return )
         RGB = tri
 ```
 
-* quiz 6 . (??) 홀수개를 찾아라
+* quiz 6 . (??) 홀수개를 찾아라.
 
   > 입력으로 list가 한개 들어옵니다. 이 list에는 1개의 숫자만 홀수 개 들어있습니다.
   >
