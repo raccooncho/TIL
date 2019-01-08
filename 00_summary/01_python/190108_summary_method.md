@@ -144,7 +144,7 @@ def lonely(lists):
     return tlist
 ```
 
-* quiz 5. * RGB 삼각형
+* quiz 5. (hard) RGB 삼각형
 
   | BG   | RG   | BR   | RR   | GG   | BB   |
   | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -195,6 +195,50 @@ def triange(RGB):  # 삼각형 그리기 ( no return )
         blankc = (count) * ' '
         print(blankc + ' '.join(tri))
         RGB = tri
+```
+
+* quiz 6 . (??) 홀수개를 찾아라
+
+  > 입력으로 list가 한개 들어옵니다. 이 list에는 1개의 숫자만 홀수 개 들어있습니다.
+  >
+  > 이 1개의 홀수개인 숫자를 return 하는 find_odd()를 작성하세요.
+
+  * 예시)
+
+  ```python
+  find_odd([1, 1, 2, 2, 3, 3, 3]) # 3
+  find_odd([2, 1, 2]) # 1
+  find_odd([1, 2, 2, 3, 2, 2, 1]) # 3
+  ```
+
+```python
+def find_odd(numbers):  # 내답안
+    odd_number = set()
+    for i in numbers:
+        if numbers.count(i) % 2:
+            odd_number.add(i)
+    return list(odd_number)
+```
+
+```python
+def find_odd(numbers):  # 오.....한 답안 
+    for uniq in list(set(numbers)):
+        if numbers.count(uniq) % 2:
+            return uniq
+```
+
+```python
+from operator import xor  # 교수님의 import 한 답안. 은 reduce도 import해야하는데 어디서 해야하는지 몰라서 fail
+
+def find_odd(numbers):
+    return reduce(xor, numbers)
+
+def find_odd_2(numbers):  # 이렇게 하면 import안해도 됨.
+    result = 0
+    for n in numbers:
+        result = result ^ n
+    return result
+
 ```
 
 
