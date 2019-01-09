@@ -82,6 +82,67 @@ def guess_up_down(number):  # 이건 내가 문제내고 컴퓨터가 맞추는 
     
 ```
 
+```python
+def guess_up_down(max_n=100, min_n=0):  # 교수님 답 # 이렇게 풀으라는 거였구나..;;
+    count = 0
+    max_n = max_n + 1
+    print('숫자를 생각하세요.!')
+    
+    while 1:
+        guess = (max_n + min_n) // 2
+        print(guess)
+        count += 1
+        feedback = int(input('작으면 -1, 크면 1, 맞으면 0: '))
+        
+        if feedback == -1:
+            max_n = guess
+        if feedback == 1:
+            min_n = guess
+        else:
+            return count
+
+guess_up_down()
+```
+
+
+
+* work shop 문제
+
+```python
+def root(sample_num, c=6):
+    count = 0
+    sample_num = sample_num * 10
+    down_num = sample_num -1
+    if count == 1:
+        while True:
+            if down_num ** 2 > (10**count) * sample_num:
+                down_num = down_num -1
+            elif down_num ** 2 < (10 **count) * sample_num:
+                down_num = down_num + 1
+                count += 1
+                break
+            else:
+                sample_num = down_num
+                count += 1
+                return sample_num / (10 ** count)        
+    while count != c:
+        sample_num = 10 * sample_num
+        down_num = 10 * down_num -1
+        while True:
+            if down_num ** 2 > (10**count) * sample_num:
+                down_num = down_num -1
+            elif down_num ** 2 < (10 **count) * sample_num:
+                down_num = down_num + 1
+                count += 1
+                break
+            else:
+                sample_num = down_num
+                count += 1
+                return sample_num / (10 ** count)
+    sample_num = down_num
+    return sample_num / (10 ** count)
+```
+
 
 
 
