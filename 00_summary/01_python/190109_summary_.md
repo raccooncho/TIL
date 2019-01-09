@@ -2,258 +2,87 @@
 
 
 
-### 0. 아침 문제풀이 & setting changes
+### 0. 아침 문제풀이 
 
-* jupyter notebook명령어 내가 원하는거로 바꾸기
+* quiz 1 :  up & down
 
-  * 우선 cd로 홈가기
-
-  * less .bash_history 를 들어가면 명령어 목록 보기 가능(q로 나옴)
-
-  * touch .bashrc 폴더 만들기
-
-  * (vim .bashrc로 수정하는곳 들어가기
-
-  * i 누른 후 alias 'jn'='jupyter notebook'입력
-
-  * :w로 저장 후 :q로 나오기)
-
-    or
-
-  * (echo 'alias "jn"="jupyter notebook"' >> .bashrc) 
-
-  * --> 수정할 때는 >>를 >로 쓰면 됨(덮어쓰기)
-
-  * cat .bashrc로 제대로 입력됬나 확인하기
-
-  * bash를 껐다 키거나 bash를 입력해서 자동으로 재부팅시킨 후 사용하면 됨
-
-* quiz 1. 이상한 덧셈
-
-  * 숫자로 구성된 리스트에서 양의 정수의 합을 구하는 함수, 'positive_sum'을 만들어 보세요.
+  * 우리가 'range(1, 101)' 중 하나를 생각한다. 컴퓨터가 절반에 위치한 숫자를 물어보고, 생각한 수보다 크면 1, 작으면 -1, 맞으면 0을 입력한다. 이때 몇번만에 컴퓨터가 맞췄는지 출력하고 프로그램을 끝낸다.
   * 예시)
 
-  ```python
-  positive_sum([1, -10, 2]) #3
-  positive_sum([-1, -2, -3, -4]) #0
+  ```sh
+  숫자를 생각하세요...
+  50
+  > -1
+  25
+  > -1
+  13
+  > -1
+  7
+  > 1
+  10 
+  > 1
+  12
+  > 0
+  6번만에 맞췄습니다.
   ```
 
 ```python
-def positive_sum(lists):  # 내 답
-    pos_list = []
-    for num in lists:
-        if num > 0:
-            pos_list.append(num)
-    return sum(pos_list)
-```
-
-```python
-def positive_sum(numbers):  # 교수님 답
-    total = 0
-    for number in numbers:
-        if number > 0:
-            total += number
-    return total
-```
-
-```python
-def pos_sum(numbers):  # 교수님의 고오급 답
-    return sum(x for x in numbers if x > 0)  
-```
-
-
-
-* quiz 2. 문자열 탐색
-
-  * 문자열 요소로만 이루어진 리스트를 넣었을 때, 문자열의 길이가 2 이상이고 주어진 문자열의 첫 번째와 마지막 문자가 같은 문자열의 수를 세는 함수 'start_end' 를 작성하세요
-  * 예시)
-
-  ```python
-  start_end(['level', 'asdwe', 's', 'abadsfa', 'q1q']) # 3
-  ```
-
-```python
-def start_end(lists):  # 내 답 == 교수님 답 # 성공적
+import random  # 이건 컴퓨터가 문제내고 내가 맞추는 코드
+def guess_up_down():
+    user_feedback = input('숫자를 입력하세요:')
+    number = random.sample(list(range(1, 101)), 1)[0]
     count = 0
-    for words in lists:
-        if len(words) > 1 and words[0] == words[-1]:
+    while number != int(user_feedback):
+        if int(user_feedback) > number:
+            print('>1')
+            user_feedback = input(f'{user_feedback}보다 작은 숫자를 입력하세요:')
             count += 1
-    return count
+        elif int(user_feedback) < number:
+            print('>-1')
+            user_feedback = input(f'{user_feedback}보다 큰 숫자를 입력하세요:')
+            count += 1
+    count += 1
+    print('>0')
+    print(f'{count}번 만에 맞췄습니다! 축하합니다!')
+    
 ```
 
-* quiz 3. Collatz
-
-  * Collatz 추측: 어떤 자연수 n 이던지, 다음과 같은 작업을 반복하면 1로 만들수 있다.
-    1. n이 짝수라면 2로 나눈다.
-    2. n이 홀수라면 3을 곱하고 1을 더한다.
-    3. 결과로 나온 수에 1/2의 작업을 1이 될때까지 반복한다. 예를 들어 n이 6이면, 6 => 3 => 10 => 5 => 16 => 8 => 4 => 2 => 1이 되며 8번(=>갯수!)만에 1이 됩니다. 자연수 n이 들어왔을 때, 몇 번의 작업만에 1이 되는 지를 'return'하는 함수 'collatz()'를 완성하세요. 단! 500번을 넘어가도 1이 되지 않는다면, -1을 'return'하세요!
-  * 예시)
-
-  ```python
-  collatz(6) # 8
-  collatz(16) # 4
-  collatz(6263313) # -1
-  ```
-
 ```python
-def collatz(n):  # 내 답
+def guess_up_down(number):  # 이건 내가 문제내고 컴퓨터가 맞추는 코드
+    num_list = list(range(1, 101))
     count = 0
-    while int(n) >= 2 and count <=500:
-        if int(n) % 2:
-            n = n * 3 + 1
+    num = num_list.index(num_list[-1]) // 2
+    numberc = num_list[num]
+    while numberc != number:
+        print('작으면 -1, 맞으면 0, 크면 1')
+        num = num_list.index(num_list[-1]) // 2
+        numberc = num_list[num]
+        numind = []
+        if numberc > number:
+            print(f'{numberc} >> 1')
             count += 1
-        else:
-            n = n / 2
+            for i in num_list:
+                if i >= numberc:
+                    numind.append(num_list.index(i))
+        elif numberc < number:
+            print(f'{numberc} >> -1')
             count += 1
-    if int(n) == 1:
-        return count
-    else:
-        return -1
-```
-
-```python
-def collatz(num):  # 교수님 답
-    for i in range(500):
-        if num % 2:
-            num = num * 3 + 1
-        else:
-            num = num / 2
-        if num == 1:
-            return i + 1
-    return -1
+            for i in num_list:
+                if i <= numberc:
+                    numind.append(num_list.index(i))
+        removelist = []
+        for i in numind:
+            removelist.append(num_list[i])
+        num_list = list(set(num_list) - set(removelist))
+            
+       
+    count += 1
+    print(f'{numberc} >> 0')
+    print(f'{count}번 만에 맞췄습니다! 축하합니다!')
+    
 ```
 
 
-
-* quiz 4.  솔로 천국
-
-  * 리스트가 주어질 때, 리스트의 요소 'e'는 'range(0, 10)'에 포함되는 자연수이다. 리스트에서 연속적으로 나타나는 숫자는 하나만 남기고 전부 제거하여 'return'하는 함수 'lonely()'를 작성해 보세요. 이때! 제거된 후 남은 수들을 반환할 때는 리스트의 요소들이 순서를 유지해야 합니다!
-  * 예시)
-
-  ```python
-  lonely([1, 1, 3, 3, 0, 1, 1, 3, 0, 3]) # [1, 3, 0]
-  lonely([4, 4, 3, 3, 3, 4]) # [4, 3]
-  ```
-
-```python
-def lonely(lists):  # 내 답 
-    tlist = []
-    for i in lists:
-        if i not in tlist:
-            tlist.append(i)
-    return tlist
-```
-
-```python
-def lonely(numbers):  # 교수님 답
-    result = []
-    for number in numbers:
-        if not result:
-            result.append(number)
-        elif result[-1] != number:
-            if result.count(number) == 0:
-                result.append(number)
-    return result
-```
-
-
-
-* quiz 5. (hard) RGB 삼각형
-
-  | BG   | RG   | BR   | RR   | GG   | BB   |
-  | ---- | ---- | ---- | ---- | ---- | ---- |
-  | R    | B    | G    | R    | G    | B    |
-  > 입력으로  ''R', 'G', 'B''가 섞여있는 문자열이 들어온다. 문자열은 다음과 같이 합쳐진다. 해당 문자열을 처리하여 마지막 색깔만 'return'하는 'triange()'을 작성하세요.
-
-  * 예시)
-
-  ```python
-  triangle('RRGBRGBB') # G
-  triangle('GB') # R
-  triangle('B') # B
-  triangle('RGBG') # B
-  ```
-
-```python
-def triange(RGB):  # 고재두님 답 참고한 내 답
-    RGB = ' '.join(RGB).split()
-    tri = RGB
-    sample = { 'R', 'G', 'B' }
-    while len(RGB) != 1:
-        tri = []
-        for i in range(len(RGB) - 1):
-            if RGB[i] == RGB[i + 1]:
-                tri.append(RGB[i])
-            else:
-                color = sample - { RGB[i], RGB[i + 1] }
-                tri = tri + list(color)
-        RGB = tri
-    return tri
-```
-
-```python
-def triange(RGB):  # 삼각형 그리기 ( no return )
-    RGB = ' '.join(RGB).split()
-    tri = RGB
-    sample = { 'R', 'G', 'B' }
-    count = 0
-    while len(RGB) != 1:
-        tri = []
-        for i in range(len(RGB) - 1):
-            if RGB[i] == RGB[i + 1]:
-                tri.append(RGB[i])
-            else:
-                color = sample - { RGB[i], RGB[i + 1] }
-                tri = tri + list(color)
-        count += 1
-        blankc = (count) * ' '
-        print(blankc + ' '.join(tri))
-        RGB = tri
-```
-
-* quiz 6 . (??) 홀수개를 찾아라.
-
-  > 입력으로 list가 한개 들어옵니다. 이 list에는 1개의 숫자만 홀수 개 들어있습니다.
-  >
-  > 이 1개의 홀수개인 숫자를 return 하는 find_odd()를 작성하세요.
-
-  * 예시)
-
-  ```python
-  find_odd([1, 1, 2, 2, 3, 3, 3]) # 3
-  find_odd([2, 1, 2]) # 1
-  find_odd([1, 2, 2, 3, 2, 2, 1]) # 3
-  ```
-
-```python
-def find_odd(numbers):  # 내답안
-    odd_number = set()
-    for i in numbers:
-        if numbers.count(i) % 2:
-            odd_number.add(i)
-    return list(odd_number)
-```
-
-```python
-def find_odd(numbers):  # 오.....한 답안 
-    for uniq in list(set(numbers)):
-        if numbers.count(uniq) % 2:
-            return uniq
-```
-
-```python
-from operator import xor  # 교수님의 import 한 답안. 은 reduce도 import해야하는데 어디서 해야하는지 몰라서 fail
-
-def find_odd(numbers):
-    return reduce(xor, numbers)
-
-def find_odd_2(numbers):  # 이렇게 하면 import안해도 됨.
-    result = 0
-    for n in numbers:
-        result = result ^ n
-    return result
-
-```
 
 
 
