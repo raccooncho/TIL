@@ -113,7 +113,7 @@ guess_up_down()
     * sqrt() 사용 금지
 
 ```python
-def root(sample_num, c=6):
+def root(sample_num, c=6):  # 내 답 1, 노가다의 산실
     count = 0
     sample_num = sample_num * 10
     down_num = sample_num -1
@@ -160,6 +160,45 @@ def root(sample_num, c=6):  # 재귀 함수를 적용 한...건가 ㅋㅋㅋㅋ
         else:
             return min_n
     return round(min_n, c)
+```
+
+```python
+def my_sqrt(n):  # 교수님 답 1
+    minimum, maximum = 0, 1
+    while 1:
+        if n == maximum ** 2:
+            return maximum
+        elif minimum ** 2 < n < maximum ** 2:
+            guess = (minimum + maximum) / 2
+            if round(minimum, 5) == round(maximum, 5):
+                return round(guess, 5)
+            elif guess ** 2 > n:
+                maximum = guess
+            else:
+                minimum = guess
+        else:
+            minimum += 1
+            maximum += 1
+```
+
+```python
+import math  # 재귀함수 및 math를 import해서 사용한 교수님 답 2
+def my_sqrt_r(n, minimum=0, maximum=1):
+    if n == maximum ** 2:
+        return maximum
+    elif minimum ** 2 < n < maximum ** 2:
+        guess = (minimum + maximum) / 2
+        if math.isclose(minimum, maximum):
+            return guess
+        elif guess ** 2 > n:
+            return my_sqrt_r(n, minimum, guess)
+        else:
+            return my_sqrt_r(n, guess, maximum)
+    else:
+        maximum += 1
+        minimum += 1
+        return round(my_sqrt_r(n, minimum, maximum), 5)
+
 ```
 
 
