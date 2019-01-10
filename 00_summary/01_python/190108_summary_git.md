@@ -1,4 +1,92 @@
-# 190107 summary_python
+# 190108 summary_python
+
+
+
+### 1. Git
+
+- $ git init 
+  - .git -> 버전관리의 기능을 가진 directory로 바꿈 == repository
+  - (master)라는 수식어가 따라다니게 됨
+  - rm -rf .git 로 .git을 제거하면 사라짐
+- $ which git 으로 사용하는 git이 설치된 경로를 확인할 수 있다.
+- home으로 돌아가서 cat .gitconfig를 입력할 수 있다.
+  - $ vim .gitconfig로 수정할 수 있다.
+  - [core]에서 editor을 vim으로 바꾼다.
+  - a를 입력하면 insert모드로 변경되어 입력 및 수정이 가능하다.
+  - esc키로 insert에서 나온다.
+  - :w로 저장하고 :q로 나온다.
+    - :wq로 한번에 저장하고 나올 수 있다.
+- $ git help는 명령어를 알려주는 명령어이다.
+- 작업하는 장소 (repository)에서 cd .git하면 (master)가 (GIT_DIR!)로 바뀌면서 .git폴더로 이동한다.
+- $ git status
+  - repository의 상태를 알려준다.
+  - 파일의 수정/추가/제거 상황이 반영된다.
+- $ git add
+  - git에 파일을 추가한다.
+  - . 은 현재 위치를 말한다.
+  - 파일명을 직접 입력하면 해당 파일만 추가된다.
+  - git add 한걸 없애는건 $git rm --cached (파일명) 하면 된다.
+- $ git commit -m '할말'
+  - add된 파일에 대한 commit을 기록한다.
+  - $ git commit -m ??
+    - commit 할 수 있는 상태를 알려준다.
+    - add된게 없으면 할 수 없다고 나옴.
+
+```markdown
+commit 메세지 작성 요령
+1. 현재형으로
+2. 명령하듯이
+3. 너무 길지 않게
+```
+
+
+
+- $ git log
+
+  ```
+  commit 52fd37a85f937d675a5cb3a52bd21a5fe05e0cb9 (HEAD -> master)
+  Author: RaccoonCho <wjtjdrb@naver.com>
+  Date:   Tue Jan 8 06:43:39 2019 +0000
+  
+      first commit
+  ```
+
+  commit 뒤 내용이 내가 올리는 버전을 말한다.
+
+  first commit자리는 commit 한 내용이 나오는 자리다.
+
+
+
+- github에서 new repository생성하기
+
+  (https://github.com/raccooncho/learn_git_prj.git)
+
+- (만약 git add랑 git commit를 한 상태라면 -> 아니라면 해줘야함)
+
+  - ```
+    git remote add origin https://github.com/raccooncho/learn_git_prj.git
+    ```
+
+- 그러면 $ cat .git/config에 url과 fetch가 추가됨. (url과 fetch는 보내는 곳과 받는 곳인데 보통 같음)
+
+- $ git remote -v로 url과 fetch를 확인할 수 있음.
+
+- $ git push -u origin master한 후에 login하게 됨
+
+  - -u : upstream(안중요)
+
+- github사이트의 repository에서 clone or download를 하면 url을 복사할 수 있음.
+
+- $ git clone url을 입력하면 git에 있는 파일을 다운받게 됨(bash에서는 ctrl v가 안되므로 shift insert로 붙여넣기 할수있음.)
+
+  - $ git clone url name : name(폴더명)을 입력할 수 있음.
+
+- $ code .하면 현재 위치에서 vscode가 열림!
+
+- 만약 push pull하다가 꼬이면
+
+  - $ git pull 하고 vim화면으로 가는데 여기서 esc키 하고 :wq로 나오면 됨
+  - 새로 로그인 하게 됨
 
 
 
@@ -256,82 +344,3 @@ def find_odd_2(numbers):  # 이렇게 하면 import안해도 됨.
 ```
 
 
-
-### 1. Git
-
-* $ git init 
-  * .git -> 버전관리의 기능을 가진 directory로 바꿈 == repository
-  * (master)라는 수식어가 따라다니게 됨
-  * rm -rf .git 로 .git을 제거하면 사라짐
-* $ which git 으로 사용하는 git이 설치된 경로를 확인할 수 있다.
-* home으로 돌아가서 cat .gitconfig를 입력할 수 있다.
-  * $ vim .gitconfig로 수정할 수 있다.
-  * [core]에서 editor을 vim으로 바꾼다.
-  * a를 입력하면 insert모드로 변경되어 입력 및 수정이 가능하다.
-  * esc키로 insert에서 나온다.
-  * :w로 저장하고 :q로 나온다.
-    * :wq로 한번에 저장하고 나올 수 있다.
-* $ git help는 명령어를 알려주는 명령어이다.
-* 작업하는 장소 (repository)에서 cd .git하면 (master)가 (GIT_DIR!)로 바뀌면서 .git폴더로 이동한다.
-* $ git status
-  * repository의 상태를 알려준다.
-  * 파일의 수정/추가/제거 상황이 반영된다.
-
-* $ git add
-  * git에 파일을 추가한다.
-  * . 은 현재 위치를 말한다.
-  * 파일명을 직접 입력하면 해당 파일만 추가된다.
-  * git add 한걸 없애는건 $git rm --cached (파일명) 하면 된다.
-* $ git commit -m '할말'
-  * add된 파일에 대한 commit을 기록한다.
-  * $ git commit -m ??
-    * commit 할 수 있는 상태를 알려준다.
-    * add된게 없으면 할 수 없다고 나옴.
-
-```markdown
-commit 메세지 작성 요령
-1. 현재형으로
-2. 명령하듯이
-3. 너무 길지 않게
-```
-
-
-
-* $ git log
-
-  ```
-  commit 52fd37a85f937d675a5cb3a52bd21a5fe05e0cb9 (HEAD -> master)
-  Author: RaccoonCho <wjtjdrb@naver.com>
-  Date:   Tue Jan 8 06:43:39 2019 +0000
-  
-      first commit
-  ```
-
-  commit 뒤 내용이 내가 올리는 버전을 말한다.
-
-  first commit자리는 commit 한 내용이 나오는 자리다.
-
-
-
-* github에서 new repository생성하기
-
-  (https://github.com/raccooncho/learn_git_prj.git)
-
-* (만약 git add랑 git commit를 한 상태라면 -> 아니라면 해줘야함)
-
-  * ```
-    git remote add origin https://github.com/raccooncho/learn_git_prj.git
-    ```
-
-* 그러면 $ cat .git/config에 url과 fetch가 추가됨. (url과 fetch는 보내는 곳과 받는 곳인데 보통 같음)
-* $ git remote -v로 url과 fetch를 확인할 수 있음.
-* $ git push -u origin master한 후에 login하게 됨
-  * -u : upstream(안중요)
-
-* github사이트의 repository에서 clone or download를 하면 url을 복사할 수 있음.
-* $ git clone url을 입력하면 git에 있는 파일을 다운받게 됨(bash에서는 ctrl v가 안되므로 shift insert로 붙여넣기 할수있음.)
-  * $ git clone url name : name(폴더명)을 입력할 수 있음.
-* $ code .하면 현재 위치에서 vscode가 열림!
-* 만약 push pull하다가 꼬이면
-  * $ git pull 하고 vim화면으로 가는데 여기서 esc키 하고 :wq로 나오면 됨
-  * 새로 로그인 하게 됨
