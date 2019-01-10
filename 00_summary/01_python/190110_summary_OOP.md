@@ -65,26 +65,53 @@
 
 ```python
 def hangman(answer, n=8, h=5):  # n은 시도 횟수 제한  # h는 목숨 제한
-    count = 0  # 시도 횟수
-    count_heart = 1  # 목숨
-    while count != n and count_heart != h:
-        count += 1
+    input_letter = []
+    count = 1  # 시도 횟수
+    count_heart = 0  # 목숨
+    while count != n+1 and count_heart != h:
         if count == n:
             my_answer = input(f'마지막 시도입니다. 신중하게 입력하세요 : ')
         else:
             my_answer = input(f'{count}번째 시도입니다. 단어를 입력하세요 : ')
-        if status(answer, my_answer) == '오답입니다.':
-            count_heart += 1
-        elif is_answer(answer, my_answer):
-            return f'정답은 {answer} 입니다! {count}번 만에 성공하셨어요!'
-        print(' ♥ '*(h-count_heart+1), '♡ '*(count_heart-1))
-        print()
-        print(status(answer, my_answer))
-        print()
-    if count == n:
+        if len(my_answer) != 1:
+            print('\n한 글자만 입력해 주세요!\n')
+        else:
+            count += 1
+            if status(answer, my_answer) == '오답입니다.':
+                count_heart += 1
+            elif is_answer(answer, my_answer):
+                return f'정답은 {answer} 입니다! {count}번 만에 성공하셨어요!'
+            else:
+                input_letter.append(my_answer)
+            print('\n', ' ♥ '*(h-count_heart), '♡ '*(count_heart), '\n')
+            print(status(answer, input_letter), '\n')
+    if count == n+1:
         return f'{count}번의 도전기회를 모두 소모하셨습니다. 가망이 없군요!' 
     else:
         return f'{count_heart}개의 목숨을 모두 소진하셨습니다. 포기하세요!'
+```
+
+
+
+```python
+def hangman(answer):  # 교수님 답  # 새 list를 만들고 거기에 정답인 알파벳을 추가하는식..
+    input_letters = []
+    attempt = 8
+    print('===START===')
+    while 1:
+        print(f"남은 목숨: {'♥' * attempt}")
+        print(status(answer, input_letters))
+        
+        guess = input('알파벳을 입력하세요: ').lower()
+        input_letters.append(guess)
+              
+        if is_answer(answer, input_letters):
+              return '성공'
+        else:
+              attempt -= 1
+        if not attempt:
+              return '실패'
+            
 ```
 
 
