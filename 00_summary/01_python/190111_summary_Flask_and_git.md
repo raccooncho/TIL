@@ -81,3 +81,160 @@ def hi(name):
 
 * from flask import jsonify를 하면 list를 웹으로 보낼 수 있다.
 
+
+
+### 2. Git
+
+* Basic Workflow
+
+```sh
+$ git init
+
+$ git status  # 빨간색 확인
+
+$ git add .
+
+$ git status  # 초록색 확인 ( 초록색만 커밋됨 )
+
+$ git commit -m '짧고 간결한 현재형'
+```
+
+*  githup, bitbucket, gitlab etc.. remote repo 를 생성
+
+```sh
+$ git remote add origin <REMOTE REPO URL.git>
+
+$ git push (-u origin master # 첫 번째만 )
+```
+
+* 다른 컴퓨터라면,
+
+```sh
+$ git clone <REMOTE REPO URL.git> # downloadZIP => .git 없음....ㅠ
+```
+
+* 작업 하다가
+
+```sh
+$ git add .
+
+$ git commit -m 'MSG'
+
+$ git push
+```
+
+* 한번에 입력한다면
+
+```sh
+$ git add . && git commit -m 'MSG' && git push
+
+\# (ㄴ Error 나면 작업이 실행되지 않음.)
+
+$ git add . ; git commit -m 'MSG' ; git push
+
+\# (ㄴ Error 나도 작업을 실행함. -> 불안정함;;)
+```
+
+* 변동사항을 알아보기 위해선
+
+```sh
+$ git diff
+```
+
+* 작업중인 txt문서는 .txt.swp라는 임시파일을 계속 생성한다 ( 작업이 끝날 때까지)
+
+* 그래서 작업중에 git add를 하면 임시파일도 계속 기록되게 된다.
+
+* 그래서 `$ touch .gitignore`를 입력해서 gitignore파일을 생성하면 해결할 수 있다.
+
+  ```
+  .dummy.txt.swp
+  ```
+
+  * 이렇게 .gitignore파일에서 직접 파일명을 입력하면 해당 파일은 git이 무시하게 된다.
+
+  ```
+  *.swp
+  ```
+
+  * 이런 식으로 *을 붙이면 .swp로 끝나는 모든 파일은 git 이 무시하게 된다.
+
+  ```
+  secrets/
+  ```
+
+  * secrets라는 폴더 안에 있는 파일들을 git에 올리고 싶지 않다면 폴더/ 를 입력하면 그 안의 내용은 git 이 무시하게 된다.
+  * Home에 .gitignore_global 파일을 만들고 `$ git config --global core.excludesfile ~/.gitignore_global`을 입력한 후 ignore할 내용을 입력한다면 모든 directory에 적용된다.
+
+* 잘못 git add 한 파일은 `$ git rm --cached dummy.txt`와 같이 입력하면 git 에 등록된 정보가 삭제된다.(unstaged)
+
+
+
+##### git branch
+
+* 기본 설정 (git init할 때)은 master임.
+* `$ git branch`로 branch를 볼 수 있음.
+* `$ git branch about-page`를 통해 about-page라는 branch를 생성함
+* `$ git checkout about-page`를 통해 about-page branch로 이동함
+* `$ git checkout -b about-page`를 통해 한번에 about-page branch를 생성하고 이동함.
+* 다시  master로 옮기면 about-page에서 작업한 내용이 사라짐..
+  * 하지만 다시 about-page로 돌아오면 작업한 내용이 돌아오니 걱정 ㄴㄴ
+
+
+
+##### git merge
+
+* master로 돌아와서
+* `$ git merge about-page`하면 about page의 작업내용이 Master 로 합쳐진다.
+* 근데 master랑 about page가 달라지면 conflict가 자주 난다.
+
+
+
+##### Conflict
+
+* 대부분의 conflict는 git이 자동으로 merge해준다.
+  * conflict 상황에서 merge하면 vim 화면이 뜬다.
+  * 이 경우는 다른 파일에서 conflict가 발생한 경우이다.
+
+* 같은 파일에서 conflict가 발생한 경우는 문제가 더 복잡하다.
+
+  * merge를 시도하면
+
+  ```bash
+  Auto-merging index.html
+  CONFLICT (content): Merge conflict in index.html
+  Automatic merge failed; fix conflicts and then commit the result.
+  ```
+
+  * 이렇게 문제가 발생한 파일을 알려준다.
+  * 파일에 가서 문제가 발생한 부분을 직접 수정해야한다.
+
+  * 하지만, vscode에서는 링크 클릭을 통해 conflict 를 해결할 수 있게 해준다.
+  * ![1547192120523](C:\Users\student\AppData\Roaming\Typora\typora-user-images\1547192120523.png)
+  * commit까지 진행하면 문제 상황이 모두 해결된다. 
+
+
+
+##### Github은 branch정보를 가져오지 않는다//////
+
+* master에서 `$ git push`를 하면 master branch의 정보만 push하기 때문에 branch가 생성되지 않는다.
+* 다른 branch(final-check)에서 push해도 
+
+```bash
+\fatal: The current branch final-check has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin final-check
+
+```
+
+이런 메세지가 뜨면서 push되지 않는다.
+
+* `$ git push -u origin final-check` 를 이용해서 push하면 github사이트에 
+
+  ![1547192822510](C:\Users\student\AppData\Roaming\Typora\typora-user-images\1547192822510.png)
+
+  이런 버튼이 생기고 메세지를 남긴 후 다른사람이 동의하면 push가 된다.
+
+* 이러면 local에서는 merge가 되지 않아서 local에서 다시 merge해줘야 한다.
+
