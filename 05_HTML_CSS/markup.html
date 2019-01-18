@@ -114,17 +114,69 @@
                 <td rowspan="2">폴킴</td>
             </tr>
         </table>
-
+        
         <h3> Form </h3>
-        <p>주문서를 작성해 주세요</p>
-        <form>
-            <div></div>
-            이 름 : <input type="text" />
-            나 이 : <input type="text" />
-            Phone : <input type="text" />
-            자기소개: <textarea></textarea>
-            <input type="text">
+        <p>자기소개하기</p>
+        <form action="./index.html">
+            <div>
+            이 름 : <input name="name" type="text" placeholder="이름을 입력해라!"/>
+            </div>
+            <div>
+            나 이 : <input name="age" type="number" />
+            </div>    
+            <div>  
+            Phone : <input name="phone" type="text" />
+            </div>
+            <div>
+            자기소개: <textarea name="intro"></textarea>
+            </div>
+            <div>
+            <input type="submit">
+            </div>
         </form>
+
+        <p> 주문서를 작성해 주세요 </p>
+        <form action="./index.html">
+            <div>
+                이름 : <input type="text" name="name" autofocus/>
+            </div>
+            <div>
+                날짜 : <input type="date" name="orderdate" />
+            </div>
+            <p><strong> 1. 샌드위치 선택 </strong></p>
+            <!-- radio -->
+            <div>
+                <input type="radio" name="sandwich" value="stake" />스테이크<br>
+                <input type="radio" name="sandwich" value="terkyavocardo" />터키 아보카도<br>
+                <input type="radio" name="sandwich" value="meetball" />미트볼
+            </div>
+
+            <p><strong>2. 사이즈 선택</strong></p>
+            <!-- number -->
+            <div>
+                <input type="number" name="size" min="15" max="30" step="15" value="15cm" />
+            </div>
+
+            <p><strong>3. 빵</strong></p>
+            <!-- option -->
+            <select name="bread">
+                <option value="honeyoat">허니오트</option>
+                <option value="flatbread">플랫브래드</option>
+                <option value="parmatiate">파마산</option>
+            </select>          
+
+            <p><strong>4. 소스</strong></p>
+            <!-- 체크박스 -->
+            <div>
+                <input type="checkbox" name="source" value="sweetonion" /> 스윗 어니언<br>
+                <input type="checkbox" name="source" value="lanch" /> 랜치<br>
+                <input type="checkbox" name="source" value="bbq" /> 바베큐
+            </div>
+            
+            <!-- 제출 => Subway! -->
+            <input type="submit" value="Subway!">
+        </form>
+        
     </body>
-    <a href="./index.html">Go back!</a>
+    <a href="./index.html">back!</a>
 </html>

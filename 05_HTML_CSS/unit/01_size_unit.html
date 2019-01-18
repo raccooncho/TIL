@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            text-align: center;
+            font-size: 14px;
+        }
+        .container {
+            text-align: left;
+            width: 75rem;
+        }
+        div.pixel {
+            font-size: 120%;
+            font-weight: bold;
+            padding: 2em;
+            background-color: rgba(255, 0, 0, 0.2);
+        }
+        div.em {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 2em;
+            background-color: rgba(0, 255, 0, 0.2);
+        }
+        div.rem {
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 2em;
+        }
+
+        .box1 { background-color: rgba(0, 0, 255, 0.2) }
+        .box2 { background-color: rgba(0, 0, 255, 0.4) }
+        .box3 { background-color: rgba(0, 0, 255, 0.6) }
+
+    </style>
+</head>
+<body>
+    <article class="container">
+            <p>
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            </p>
+    </article>
+    
+    <div class="box1 rem">
+        Font size: 14px * 1.2
+        <div class="box2 rem">
+            Font size: 14px * 1.2 * 1.2
+            <div class="box3 rem">
+                Font size: 14px * 1.2 * 1.2 * 1.2
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="box1 em">
+        Font size: 14px * 1.2
+        <div class="box2 em">
+            Font size: 14px * 1.2 * 1.2
+            <div class="box3 em">
+                Font size: 14px * 1.2 * 1.2 * 1.2
+            </div>
+        </div>
+    </div>
+    <p>Font size: 14px</p>
+    <div class="pixel">Font size: 14px * 120% -> 16.8px</div>
+
+    <div class="em">Font size: 1.2em == 14px * 1.2 -> 16.8px</div>
+</body>
+</html>

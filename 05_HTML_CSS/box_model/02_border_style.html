@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <META HTTP-EQUIV="refresh" CONTENT="1">
+    <style>
+        div {
+            background: crimson;
+            color: #666;
+            display: inline-block;
+            width: 90px;
+            height: 90px;
+            line-height: 90px;
+            margin: 0 14px;
+            text-align: center;
+        }
+
+        .border-rounded {
+            /* 꼭지점 기준 5px 떨어져서 원을 그림 */
+            border-radius: 5px;
+        }
+
+        .border-circle {
+            border-radius: 50%;
+        }
+
+        .border-football {
+            border-radius: 15% 75%;    
+        }
+        p {
+            background: palegreen;
+            padding: 10px;
+        }
+
+        p.dotted { border-style: dotted; }
+
+        p.dashed { border-style: dashed; }
+
+        p.solid { border-style: solid; } 
+
+        p.double { border-style: double; }
+
+        p.groove { border-style: groove; }
+
+        p.ridge { border-style: ridge; }
+
+        p.inset { border-style: inset; }
+
+        p.outset { border-style: outset; }
+
+        p.none { border-style: none; }
+
+        p.hidden { border-style: hidden; }
+
+        p.mix { border-style: dotted dashed solid double; }
+    </style>
+</head>
+
+<body>
+    <div class="border-circle">50%</div>
+    <div class="border-radius">5px</div>
+    <div class="border-football">15px</div>
+    <h2>border-style Property</h2>
+
+    
+    <p class="dotted">dotted</p>
+    <p class="dashed">dashed</p>
+    <p class="solid">solid</p>
+    <p class="double">double</p>
+    <p class="groove">groove</p>
+    <p class="ridge">ridge</p>
+    <p class="inset">inset</p>
+    <p class="outset">outset</p>
+    <p class="none">none</p>
+    <p class="hidden">hidden</p>
+    <p class="mix">dotted dashed solid double</p>
+</body>
+
+</html>

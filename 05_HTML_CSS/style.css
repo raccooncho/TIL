@@ -1,0 +1,41 @@
+body {
+    background-color:wheat; 
+}
+
+a {
+    color: red;
+}
+
+div a {
+    color: green;
+}
+
+.bio-box {
+    color: skyblue;
+    border: 1px solid black;
+}
+
+#exec-bio {
+    background-color: lightgray;
+}   
+/* 아무 a tag를 잡아서 아무 id를 주고 id로 select하여 배경색 오렌지를 주세요 */
+#googol {
+    background-color: orange;
+}
+
+/* 모든 .bio-box클래스를 가진 요소들에 추가로 아무 class를 주고,
+ class 로 select하여 배경색 azure를 적용하자 */
+.secC {
+    background-color: aqua;
+}
+
+.alert {
+    background-color: red;
+}
+
+/* bad example */
+body div #exec-bio .bio-box {
+    color: green;
+}
+
+#content > div.article > div.mv_info_area > div.poster > a > img

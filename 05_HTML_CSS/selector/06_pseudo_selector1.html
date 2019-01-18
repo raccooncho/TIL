@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* a에 마우스를 올리면. */
+        a:hover { 
+            color: deepskyblue;
+            font-weight: bold;
+        }
+        /* input에 포커스가 가면. */
+        input:focus {background-color: cornsilk;}
+    /* Link Pseudo Selector, User action pseudo selector */
+        /* a link를 방문하지 않았을 때 */
+        a:link { color: black;}
+        /* a link를 방문 했을 때 */
+        a:visited { color: green;}
+        /* a element를 클릭하고 있을 때 */
+        a:active {color: firebrick;}
+        /*  */
+        input[type="text"]:focus,
+        input[type="password"]:focus { color: red;}
+    /* UI element state pseudo selector */
+        /* input이 사용 가능할 때, input element 바로 뒤에 오는 span을 선택 */
+        input:enabled + span { color: blue; }
+        /* input이 사용  불가능할 때, input element 바로 뒤에 오는 span을 선택 */
+        input:disabled + span { 
+            color: red; 
+            text-decoration: line-through;
+        }
+        /* input checked상태일 때, input요소 바로 뒤에 오는 형제 span을 선택 */
+        input:checked + span { color:fuchsia;   }
+    /* Structural pseudo selector */
+        /* p element 중에서 첫번째 자식을 선택 */
+        p:first-child {color:gold;}
+        /* 전제 자식 중 가장 마지막 element가 p element일 경우 선택 */
+        p:last-child {color:brown;}
+        /* 전체 자식 중 짝수 번째 element가 li element일 경우 선택 */
+        ol>li:nth-child(2n) {color: indianred;}
+        /* 전체 자식 중 홀수 번째 element가 li element일 경우 선택 */
+        ol>li:nth-child(2n+1) {color: sienna;}
+        /* 전체 자식 중 첫번째 element가 li element일 경우 선택 */
+        ol>li:first-child {color:darkmagenta;}
+        /* 전체 자식 중 마지막 element가 li element일 경우 선택 */
+        ol>li:last-child {color: orangered;}
+        /* 전체 자식 중 4번째 element가 li element일 경우 선택 */
+        ol>li:nth-child(4) {background-color: azure;}
+        /* 전체 자식 중 뒤어서부터 홀수번째 element를 선택 */
+        ul> :nth-last-child(2n+1) {color:cadetblue;}
+        /* 전체 자식 중 뒤어서부터 짝수번째 element를 선택 */
+        ul> :nth-last-child(2n) {color: chocolate;}
+
+        /* p 요소인 자식 중 첫번째인 p */
+        p:first-of-type {color: coral;}
+        /* p 요소인 자식 중 마지막인 p */
+        p:last-of-type {color: blueviolet;}
+        /* p 요소인 자식 중 두번째인 p */   
+        p:nth-of-type(2) {color:cadetblue;}
+        /* p 요소인 자식 중 뒤에서 두번째인 p */
+        p:nth-last-of-type(2) {color:mediumorchid}
+
+    /* Negation pseudo selector (부정 셀렉터) */
+        input:not([type="password"]) { background: midnightblue; }
+    </style>
+</head>
+<body>
+
+    <p> This paragraph is a first child of parents(body) </p>
+
+    <h1>Welcome to my homepage</h1>
+    <p> This paragaph is not both first and last child of parents </p>
+
+    <div>
+        <p>This paragraph is a first child of parents(div)</p>
+        <p>This paragraph is a last child of parents(div)</p>
+    </div>
+
+    <div>
+        <h2>This is Heading2</h2>
+        <p>1st paragraph</p>
+        <p>2nd paragraph</p>
+        <p>3rd paragraph</p>
+        <p>4th paragraph</p>
+        <div>
+            <h3>This is Heading3</h3>
+            <p>1st paragraph</p>
+            <p>2nd paragraph</p>
+            <p>3rd paragraph</p>
+            <p>4th paragraph</p>   
+        </div>
+    </div>
+
+   <div>
+        <ol>
+            <li>Espresso</li>
+            <p>sss</p>
+            <li>Americano</li>
+            <li>Caffelatte</li>
+            <li>CaffeMoca</li>
+            <li>Caramel Macchiato</li>
+            <li>Capuccino</li>
+        </ol>
+
+        <ul>
+            <li>Espresso</li>
+            <li>Americano</li>
+            <li>Caffelatte</li>
+            <li>CaffeMoca</li>
+            <li>Caramel Macchiato</li>
+            <li>Capuccino</li>
+        </ul>
+    </div>
+
+    <!-- #은 제자리에 있겠다는 것을 의미한다. (미완성의 의미이다.) -->
+    <a href="#">Hover me</a>
+    <br><br>
+    <input type="text" placeholder="Focus me">
+
+    <div>
+        <input type="text" value="I'll be red when focus">
+        <input type="password" value="I'll be red when focus">
+    </div>
+
+    <form action="">
+        <input type="radio" value="메뉴A" checked="checked"> 
+        <span> 순두부 </span> <br>
+        <input type="radio" value="메뉴B" > 
+        <span> 바베큐 폭찹 </span> <br>
+        <input type="radio" value="굶기" disabled> 
+        <span> 다이어트를 합시다 </span> <br>
+
+        <input type="checkbox" value="taxi" checked="checked"> 
+        <span> 택시타고 귀가 </span> <br>
+        <input type="checkbox" value="bm"> 
+        <span> 대중교통으로 귀가 </span> <br>
+        <input type="checkbox" value="walk" disabled> 
+        <span> 걸어서 귀가 </span> <br>
+    </form>
+</body>
+</html>

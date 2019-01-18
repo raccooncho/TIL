@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    /* 후손 자손 셀렉터 */
+        /* div 요소의 후손(n level) 요소 중 p tag 전체 */
+        div p { color: palevioletred; }
+        /* div 요소의 자식(1 level) 요소 중 p tag 전체 */
+        div > p { color: brown; }
+    /* siblings 셀렉터 */
+        /* p의 sibling 요소중에 바로 뒤에 오는 ul요소 */
+        p + ul { color: darkgoldenrod; }
+        /* div의 sibling 요소 중에 뒤에 오는 p요소 */
+        div ~ p { color: darkolivegreen; }
+    </style>
+</head>
+<body>
+    <h1>Heading</h1>
+    <p>ddd</p>
+    <div>
+        <p>paragraph 1</p>
+        <p>paragraph 2</p>
+        <span>
+            <p>paragraph 3</p>
+        </span>
+    </div>
+    <p>paragraph 4</p>
+
+    <div> A div element.</div>
+    <ul>
+        <li>Coffe</li>
+        <li>Tea</li>
+        <li>Milk</li>
+    </ul>
+
+    <p>First Paragraph</p>
+    <ul>
+        <li>Latte</li>
+        <li>Choco</li>
+        <li>Water</li>
+    </ul>
+
+    <h2>Another list</h2>
+    <ul>
+        <li>Mango</li>
+        <li>Grape</li>
+        <li>Mandarin</li>
+    </ul>
+</body>
+</html>
