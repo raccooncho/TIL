@@ -125,7 +125,7 @@ def update(num='1', feeling='bad'):
   * menus table을 확인
 
 * sqlite> INSERT INTO menus (id, menu1, menu2)
-     ...> VALUES (1, 'Pho', 'Pork');
+  ...> VALUES (1, 'Pho', 'Pork');
 
   * 이렇게 value를 입력
 
@@ -176,7 +176,7 @@ def update(num='1', feeling='bad'):
 
 ##### sqlite3 폴더에 `create_table.sql`파일과 `insert_record.sql`파일을 생성한다.
 
-##### `create_table.sql`파일에 테이블을 생성하는 명령어를 입력해 준다
+##### 	`create_table.sql`파일에 테이블을 생성하는 명령어를 입력해 준다
 
 ```sqlite
 CREATE TABLE computers (
