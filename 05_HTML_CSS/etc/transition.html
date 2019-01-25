@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        div.circle {
+            width: 100px;
+            height: 100px;
+            background-color: bisque;
+            transition: all 1s;
+        }
+        div.circle:hover {
+            border-radius: 50%;
+            background-color: slateblue;
+        }
+        div.status-bar {
+            width: 200px;
+            height: 50px;
+            background-color: lightgoldenrodyellow;
+            transition-property: width, background-color;
+            transition-duration: 1.2s, 3s;
+        }
+        div.status-bar:hover {
+            width: 500px;
+            background-color: darkcyan;
+        }
+    </style>
+</head>
+<body>
+    <div class="circle">냥</div>
+    <div class="status-bar">status</div>
+</body>
+</html>
