@@ -1,0 +1,50 @@
+{% extends 'sns/base.html' %}
+{% block detail %}
+active
+{% endblock %}
+{% block body %}
+    <div class="row mt-3">
+        <div class="col-12 col-md-6">
+            <div class="card">
+                {% if posting.image %}
+                    <img src="{{ posting.image.url }}" class="card-img-top" alt="{{ posting.image }}">
+                {% else %}
+                    <img src="https://lorempixel.com/g/300/400" class="card-img-top" alt="random_image">
+                {% endif %}
+                <div class="card-body">
+                    <i class="{{ posting.icon }} fa-3x"></i>
+                    <hr>
+                    <p class="card-text">
+                        {{ posting.content }}
+                    </p>
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-body">
+                    <form action="{% url 'sns:create_comment' posting.id %}" method="POST">
+                        {% csrf_token %}
+                        <label for="comment">Leave comment</label>
+                        <input type="text" name="comment" id="comment" class="form-control">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    {% if comments %}
+                        {% for comment in comments %}
+                            <li class="list-group-item mb-1">
+                                {{ comment.content }}
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item mb-1">
+                            No comments yet...
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

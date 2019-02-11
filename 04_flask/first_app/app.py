@@ -9,7 +9,7 @@ def index():
 
 @app.route('/ssafy')
 def ssafy():
-    return 'sssssssssafy'   
+    return 'sssssssssafy'
 
 @app.route('/hi/<string:name>')
 def hi(name):
