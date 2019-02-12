@@ -1,0 +1,9 @@
+<h1> 회원가입과 로그인 테스트 </h1>
+
+<h2>
+    {% if user.is_authenticated %}
+    You are Logged in ! <a href="{% url 'accounts:signout' %}">로그아웃하러가기</a>
+    {% else %}
+    You are not Logged in ! <a href="{% url 'accounts:signin' %}">로그인하러가기</a>
+    {% endif %}
+</h2>
