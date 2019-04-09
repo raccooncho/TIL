@@ -8,6 +8,28 @@
     <a href="{% url 'board_ad:posting_update' posting.id %}"><button>Update</button></a>
     <form action="{% url 'board_ad:posting_delete' posting.id %}" method="POST">
         {% csrf_token %}
-        <button type="submit">Delete</button>
+        <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
     </form>
+    <hr>
+    <form action="{% url 'board_ad:comment_create' posting.id %}" method="POST">
+    {% csrf_token %}
+        <label for="comment">Comment</label>
+        <input type="text" id="comment" name="comment_content">
+        <input type="submit" value="leave comment">
+    </form>
+    <hr>
+
+    {% if comments %}
+        <ol>
+        {% for comment in comments %}
+            <li>
+            <form action="{% url 'board_ad:comment_delete' posting.id comment.id %}" method="POST">
+            {% csrf_token %}
+                {{ comment.content }}
+                <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+            </form>
+            </li>
+        {% endfor %}
+        </ol>
+    {% endif %}
 {% endblock %}

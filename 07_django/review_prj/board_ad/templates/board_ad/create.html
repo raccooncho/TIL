@@ -5,12 +5,12 @@
     <h1>New Posting</h1>
     </div>
     <hr>
-    <form action="{% url 'board_ad:posting_create' %}" method="POST">
+    <form method="POST">
         {% csrf_token %}
         <label for="posting_title">Title</label>
         <input type="text" name="posting_title" id="posting_title">
         <hr>
-        <label for="posting_content">Content</label>
+        <label for="posting_content">Content</label><br>
         <textarea name="posting_content" id="posting_content" cols="30" rows="10"></textarea>
         <hr>
         <button type="submit">CREATE</button>
