@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'board',
+    'board_ad',
+
 ]
 
 MIDDLEWARE = [
