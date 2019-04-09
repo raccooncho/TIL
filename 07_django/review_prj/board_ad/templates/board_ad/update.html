@@ -3,10 +3,18 @@
 {% block body %}
     <form action="{% url 'board_ad:posting_update' posting.id %}" method="POST">
         {% csrf_token %}
-        <input name='posting_title' type="text" value={{ posting.title }}>
+        <div>
+            <label for="posting_title">Title</label>
+            <input name='posting_title' type="text" value={{ posting.title }} id="posting_title">
+        </div>
         <hr>
-        <textarea name="posting_content" id="" cols="30" rows="10">{{ posting.content }}</textarea>
+        <div>
+            <label for="posting_content">Content</label>
+            <textarea name="posting_content" id="posting_content" cols="30" rows="10">{{ posting.content }}</textarea>
+        </div>
         <hr>
-        <button type="submit">EDIT</button>
+        <div>
+            <button type="submit">Update post</button>
+        </div>
     </form>
 {% endblock %}

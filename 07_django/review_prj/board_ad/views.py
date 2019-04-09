@@ -9,8 +9,8 @@ def posting_list(request):
         'postings': postings
     })
 
-def posting_detail(request, id):
-    posting = get_object_or_404(Posting, id=id)
+def posting_detail(request, posting_id):
+    posting = get_object_or_404(Posting, id=posting_id)
     return render(request, 'board_ad/detail.html', {
         'posting': posting
     })
@@ -22,26 +22,26 @@ def posting_create(request):
         posting.title = request.POST.get('posting_title')
         posting.content = request.POST.get('posting_content')
         posting.save()
-        return redirect('board_ad:posting_detail', posting.id)
+        return redirect('board_ad:posting_detail', posting_id=posting.id)
     else:
         return render(request, 'board_ad/create.html')
 
 # Update
-def posting_update(request, id):
-    posting = get_object_or_404(Posting, id=id)
+def posting_update(request, posting_id):
+    posting = get_object_or_404(Posting, id=posting_id)
     if request.method == 'POST':
         posting.title = request.POST.get('posting_title')
         posting.content = request.POST.get('posting_content')
         posting.save()
-        return redirect('board_ad:posting_detail', posting.id)
+        return redirect('board_ad:posting_detail', posting_id=posting.id)
     else:
         return render(request, 'board_ad/update.html', {
             'posting': posting
         })
 
 # Delete
-def posting_delete(request, id):
-    posting = get_object_or_404(Posting, id=id)
+def posting_delete(request, posting_id):
+    posting = get_object_or_404(Posting, id=posting_id)
     if request.method == 'POST':
         posting.delete()
         return redirect('board_ad:posting_list')
