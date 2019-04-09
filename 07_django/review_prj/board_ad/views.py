@@ -2,17 +2,23 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Posting, Comment
 
 # Create your views here.
-def article_list(request):
+def posting_list(request):
+    postings = Posting.objects.all()
+    return render(request, 'board_ad/list.html', {
+        'postings': postings
+    })
+
+def posting_detail(request, id):
+    posting = Posting.objects.get(id=id)
+    return render(request, 'board_ad/detail.html', {
+        'posting': posting
+    })
+
+def posting_create(request):
     pass
 
-def article_detail(request, id):
+def posting_edit(request, id):
     pass
 
-def article_create(request):
-    pass
-
-def article_edit(request, id):
-    pass
-
-def article_delete(request, id):
+def posting_delete(request, id):
     pass
