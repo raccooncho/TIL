@@ -64,11 +64,12 @@ def comment_create(request, posting_id):
     comment.content = request.POST.get('comment_content')
     comment.posting = posting
     comment.save()
-    return redirect('board_ad:posting_detail', posting_id=posting_id)
+    return redirect('board_ad:posting_detail', posting_id=posting.id)
 
 @require_http_methods(['POST'])
 def comment_delete(request, posting_id, comment_id):
+    posting = get_object_or_404(Posting, id=posting_id)
     comment = get_object_or_404(Comment, id=comment_id)
     comment.delete()
-    return redirect('board_ad:posting_detail', posting_id=posting_id)
+    return redirect('board_ad:posting_detail', posting_id=posting.id)
 
