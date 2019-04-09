@@ -1,12 +1,12 @@
-{% extends 'board/base.html' %}
+{% extends 'board_ad/base.html' %}
 
 {% block body %}
-    <h1>Article List</h1>
-    <a href="/articles/create/"><button>New posting</button></a>
+    <h1>Posting List</h1>
+    <a href="{% url 'board_ad:posting_create' %}"><button>New posting</button></a>
     {% if postings %}
         <ol>
         {% for posting in postings %}
-            <li><a href="/articles/{{ posting.id }}/">{{ posting.title }}</a></li>
+            <li><a href="{% url 'board_ad:posting_detail' posting.id %}">{{ posting.title }}</a></li>
         {% endfor %}
         </ol>
     {% endif %}

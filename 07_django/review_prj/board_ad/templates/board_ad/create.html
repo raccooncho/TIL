@@ -1,0 +1,16 @@
+{% extends 'board_ad/base.html' %}
+
+{% block body %}
+    <div>
+    <h1>New Posting</h1>
+    </div>
+    <hr>
+    <form action="{% url 'board_ad:posting_create' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="posting_title">
+        <hr>
+        <textarea name="posting_content" id="" cols="30" rows="10"></textarea>
+        <hr>
+        <button type="submit">CREATE</button>
+    </form>
+{% endblock %}

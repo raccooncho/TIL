@@ -1,12 +1,12 @@
-{% extends 'board/base.html' %}
+{% extends 'board_ad/base.html' %}
 
 {% block body %}
-    <h1>{{ article.title }}</h1>
-    <p>{{ article.content }}</p>
+    <h1>{{ posting.title }}</h1>
+    <p>{{ posting.content }}</p>
     <hr>
-    <a href="/articles/list/"><button>List</button></a>
-    <a href="/articles/{{ article.id }}/edit/"><button>Edit</button></a>
-    <form action="/articles/{{ article.id }}/delete/" method="POST">
+    <a href="{% url 'board_ad:posting_list' %}"><button>List</button></a>
+    <a href="{% url 'board_ad:posting_update' posting.id %}"><button>Update</button></a>
+    <form action="{% url 'board_ad:posting_delete' posting.id %}" method="POST">
         {% csrf_token %}
         <button type="submit">Delete</button>
     </form>

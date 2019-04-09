@@ -1,0 +1,12 @@
+{% extends 'board_ad/base.html' %}
+
+{% block body %}
+    <form action="{% url 'board_ad:posting_update' posting.id %}" method="POST">
+        {% csrf_token %}
+        <input name='posting_title' type="text" value={{ posting.title }}>
+        <hr>
+        <textarea name="posting_content" id="" cols="30" rows="10">{{ posting.content }}</textarea>
+        <hr>
+        <button type="submit">EDIT</button>
+    </form>
+{% endblock %}
