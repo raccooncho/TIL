@@ -35,6 +35,7 @@ class Hotel(models.Model):
         for i in range(n):
             cls.objects.create(name=faker.company())
 
+
 class Student(models.Model):
     name = models.CharField(max_length=30, default='No Name')
 
