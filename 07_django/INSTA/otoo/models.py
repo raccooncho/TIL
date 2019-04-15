@@ -10,7 +10,6 @@ class User(models.Model):
     def __str__(self):
         return f'{self.id}: {self.email_address}'
 
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
     last_name = models.CharField(max_length=50, default='Name')
