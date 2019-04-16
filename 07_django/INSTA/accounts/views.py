@@ -10,8 +10,8 @@ def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(data=request.POST)
         if form.is_valid():
-            user =  form.save()
-            auth_login(request, user.get_user())
+            user = form.save()
+            auth_login(request, user)
             return redirect(request.GET.get('next') or 'posts:post_list')
     else:
         form = UserCreationForm()
