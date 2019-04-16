@@ -4,8 +4,8 @@ from .models import Post
 
 
 class PostModelAdmin(admin.ModelAdmin):
-    readonly_fields = ('created_at', 'updated_at')
-    list_display = ('id', 'content', 'created_at', 'updated_at')
+    readonly_fields = ('created', 'modified')
+    list_display = ('id', 'content', 'created', 'modified')
     list_display_links = ('id', 'content')
 
 

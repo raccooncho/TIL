@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     'bootstrap4',
     'mton',
     'posts',
-    'otoo',
+    # 'otoo',
     'otom',
+    'accounts',
 
 ]
 

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Image
 
 
 class PostModelForm(forms.ModelForm):
@@ -8,3 +8,12 @@ class PostModelForm(forms.ModelForm):
         model = Post
         fields = '__all__'
         # fields = ['content', ... ]
+
+
+class ImageModelForm(forms.ModelForm):
+    class Meta:
+        model = Image
+        fields = ['file', ]
+        widgets = {
+            'file': forms.FileInput(attrs={ 'multiple': True }),
+        }
