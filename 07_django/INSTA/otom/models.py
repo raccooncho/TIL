@@ -11,7 +11,7 @@ class TimeStamp(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     class Meta:
-        abstract = True # Table 이 migrate되지 않음.
+        abstract = True  # Table 이 migrate 되지 않음.
 
 
 class Writer(TimeStamp):
@@ -37,3 +37,18 @@ class Chapter(TitleDescriptionModel, TimeStampedModel):
 
     def __str__(self):
         return f'{self.id}: {self.book.title} - {self.title}'
+
+
+class Student(models.Model):
+    name = models.CharField(max_length=20)
+
+
+class Message(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    content = models.CharField(max_length=30)
+
+
+class Reply(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    message = models.ForeignKey(Message, on_delete=models.CASCADE)
+    content = models.CharField(max_length=30)

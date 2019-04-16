@@ -12,8 +12,16 @@ def post_create(request):
         form = PostModelForm()
     # post 방식으로 입력받은 data를 저장
     else:
-        # POST 방식으로 넘어온 Data 를 ModelForm 에 넣는다.
+        # POST 방식으로 넘어온 Data 를 ModelForm 에 넣는다. image file 을 받으려면 request.FILES 를 해야한다.
         form = PostModelForm(request.POST, request.FILES)
+
+        # post = Post()
+        # post.content = request.POST.get('content')
+        # post.title = request.POST.get('title')
+        # post.score = request.POST.get('score')
+        #
+        # post.image = request.FILES.get('image')
+
         # Data 검증을 한다.
         if form.is_valid():
             # 통과하면 저장한다.
@@ -41,8 +49,8 @@ def post_update(request, post_id):
         if form.is_valid():
             form.save()
             return redirect('posts:post_list')
-    else: form = PostModelForm(instance=post)
+    else:
+        form = PostModelForm(instance=post)
     return render(request, 'posts/form.html', {
         'form': form,
     })
-
