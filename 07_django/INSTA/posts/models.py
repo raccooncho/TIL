@@ -3,6 +3,8 @@ from django_extensions.db.models import TimeStampedModel
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill, ResizeToFit
 from faker import Faker
+from django.conf import settings
+# from django.contrib.auth.models import User
 # import os
 # ENV = os.environ.get('ENVIRONMENT', 'development')
 # if ENV == 'development':
@@ -14,6 +16,7 @@ faker = Faker()
 
 # Create your models here.
 class Post(TimeStampedModel):
+    writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.CharField(max_length=140)
 
 
@@ -33,4 +36,9 @@ class Image(TimeStampedModel):
         options={ 'quality': 90, }
          )  # pip install pillow
 
+
+class Comment(TimeStampedModel):
+    content = models.CharField(max_length=100)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 

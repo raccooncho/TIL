@@ -121,6 +121,7 @@ USE_L10N = True
 
 USE_TZ = False
 
+AUTH_USER_MODEL = 'auth.User' # user model 을 받아옴
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
