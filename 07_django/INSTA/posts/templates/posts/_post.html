@@ -22,7 +22,7 @@
     {% endif %}
     <div class="card-body">
         <p class="card-text">{{ post.content }}</p>
-        <p class="card-text">writer : {{ user.username }}</p>
+        <p class="card-text">writer : <a href="{% url 'accounts:user_detail' username=post.writer.username %}">{{ post.writer.username }}</a></p>
 
 
         {% if post.writer_id == user.id %}
@@ -42,7 +42,7 @@
     <div class="card-body">
         <p class="card-text">
             {% for comment in post.comment_set.all %}
-                <strong>{{ comment.writer.username }}</strong> : {{ comment.content }}<br>
+                <a href="{% url 'accounts:user_detail' username=comment.writer.username %}"><strong>{{ comment.writer.username }}</strong></a> : {{ comment.content }}<br>
             {% empty %}
                 No Comments
             {% endfor %}

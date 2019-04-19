@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from .models import Post
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
 from .forms import PostModelForm, ImageModelForm, CommentModelForm
@@ -91,8 +91,9 @@ def comment_create(request, post_id):
         comment.writer = request.user
         comment.post = post
         comment.save()
-        return redirect('posts:post_list')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/insta/'))
     # return render(request, 'posts/form.html', {
+
     #     'comment_form': comment_form,
     #
     # })

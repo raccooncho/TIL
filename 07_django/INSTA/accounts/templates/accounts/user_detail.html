@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-4">
+            <img src="..." alt="{{ user_info.username }}-profile-picture">
+        </div>
+        <div class="col-8">
+            <h1>{{ user_info.username }}</h1>
+            <div>
+                {% if user != user_info %}
+                    <form action="{% url 'accounts:toggle_follow' username=user_info.username %}" method="POST">
+                    {% csrf_token %}
+                    {% if user_info in user.followings.all %}
+{#                        unfollow#}
+                        <button class="btn btn-secondary">Unfollow</button>
+                    {% else %}
+{#                    follow#}
+                        <button class="btn btn-secondary">Follow</button>
+                    {% endif %}
+                </form>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+    <div class="card-columns">
+            {% for post in user_info.post_set.all %}
+                {% include 'posts/_post.html' with post=post comment_form=comment_form%}
+            {% endfor %}
+    </div>
+{% endblock %}
