@@ -23,11 +23,22 @@
     <div class="card-body">
         <p class="card-text">{{ post.content }}</p>
         <p class="card-text">writer : {{ user.username }}</p>
+
+
         {% if post.writer_id == user.id %}
-            <a href="{% url 'posts:post_update' post.id %}" class="btn btn-secondary">Edit</a>
+            <a href="{% url 'posts:post_update' post_id=post.id %}" class="btn btn-secondary">Edit</a>
         {% endif %}
     </div>
-
+    <div class="card-body">
+        <form action="{% url 'posts:toggle_like' post_id=post.id %}" method="POST">
+            {% csrf_token %}
+            {% if user in post.like_users.all %}
+                <input type="submit" class="btn btn-dark" value="{{ post.like_users.count }}">
+            {% else %}
+                 <input type="submit" class="btn btn-secondary" value="{{ post.like_users.count }}">
+            {% endif %}
+        </form>
+    </div>
     <div class="card-body">
         <p class="card-text">
             {% for comment in post.comment_set.all %}
@@ -37,11 +48,11 @@
             {% endfor %}
         </p>
     </div>
-<div class="card-footer">
-    <form action="{% url 'posts:comment_create' post.id %}" method="POST">
-        {% csrf_token %}
-        {{ comment_form.content }}
-        <input type="submit" class="btn btn-secondary" value="submit">
-    </form>
-</div>
+    <div class="card-footer">
+        <form action="{% url 'posts:comment_create' post.id %}" method="POST">
+            {% csrf_token %}
+            {{ comment_form.content }}
+            <input type="submit" class="btn btn-secondary" value="submit">
+        </form>
+    </div>
 </div>

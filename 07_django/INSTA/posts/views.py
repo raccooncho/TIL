@@ -96,3 +96,24 @@ def comment_create(request, post_id):
     #     'comment_form': comment_form,
     #
     # })
+
+
+@login_required
+@require_POST
+def toggle_like(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    user = request.user
+    if user in post.like_users.all():
+        post.like_users.remove(user)
+    else:
+        post.like_users.add(user)
+    return redirect('posts:post_list')
+
+
+# def delete_like(request, post_id):
+#     post = get_object_or_404(Post, post_id)
+#     user = request.user
+#     if user in post.like_users.all():   #filter(id=user.id):
+#         post.like_users.remove(user)
+#
+#     pass

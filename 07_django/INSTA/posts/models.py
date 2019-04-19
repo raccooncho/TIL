@@ -18,7 +18,7 @@ faker = Faker()
 class Post(TimeStampedModel):
     writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.CharField(max_length=140)
-
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_posts')
 
     @classmethod
     def dummy(cls, n):
@@ -41,4 +41,3 @@ class Comment(TimeStampedModel):
     content = models.CharField(max_length=100)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
