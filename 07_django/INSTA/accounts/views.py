@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
-from .forms import CustomUserAuthenticationForm, CustomUserCreateForm
 # from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib import messages
 from django.contrib.auth import login as auth_login, logout as auth_logout
-from .models import User
-from posts.forms import CommentModelForm
 from django.contrib.auth.decorators import login_required
+from .models import User
+from .forms import CustomUserAuthenticationForm, CustomUserCreateForm
+from posts.forms import CommentModelForm
+
+
 # from django.contrib.auth import get_user_model
 
 # Create your views here.
@@ -34,7 +37,10 @@ def login(request):
         form = CustomUserAuthenticationForm(request, data=request.POST)
         if form.is_valid():
             # Do Log in
+            user = form.get_user()
             auth_login(request, form.get_user())
+            messages.add_message(request, messages.SUCCESS, f'Wecome {user.username}')
+            messages.add_message(request, messages.INFO, f'Last login : {user.last_login}')
             return redirect('posts:post_list')
     # 사용자가 로그인 화면을 요청할 때
     else:
@@ -47,6 +53,7 @@ def login(request):
 @login_required
 def logout(request):
     auth_logout(request)
+    messages.add_message(request, messages.SUCCESS, 'Logout Successfully')
     return redirect('posts:post_list')
 
 

@@ -9,4 +9,6 @@ urlpatterns = [
     path('<int:post_id>/update/', views.post_update, name='post_update'),
     path('<int:post_id>/comment/create/', views.comment_create, name='comment_create'),
     path('<int:post_id>/like/', views.toggle_like, name='toggle_like'),
+    # /insta/tags/hihi
+    path('tags/<str:tag_name>/', views.tag_posts_list, name='tag_posts_list'),
 ]

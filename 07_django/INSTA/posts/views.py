@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
-from .models import Post
+from .models import Post, HashTag
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
 from .forms import PostModelForm, ImageModelForm, CommentModelForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 # Create your views here.
@@ -34,6 +35,17 @@ def post_create(request):
             post = post_form.save(commit=False)
             post.writer = request.user
             post.save()
+            # create HashTag
+            content = post_form.cleaned_data.get('content')
+            words = content.split()  # 띄어쓰기 기준으로 split
+            for word in words:
+                if word[0] == '#' and len(word) <= 21:
+                    word = word[1:]
+                    tag = HashTag.objects.get_or_create(content=word)  # (HashTag objects, True or False)
+                    post.tags.add(tag[0])
+                    if tag[1]:  # tag가 처음 만들어진 거라면
+                        messages.add_message(request, messages.SUCCESS, f'"#{tag[0].content}"를 처음으로 추가하셨어요! XD')
+
             for image in request.FILES.getlist('file'):
                 request.FILES['file'] = image
                 image_form = ImageModelForm(files=request.FILES)
@@ -54,9 +66,11 @@ def post_create(request):
 def post_list(request):
     posts = Post.objects.all()
     comment_form = CommentModelForm()
+    pages = ' '
     return render(request, 'posts/list.html', {
         'posts': posts,
         'comment_form': comment_form,
+        'pages': pages,
     })
 
 
@@ -69,6 +83,17 @@ def post_update(request, post_id):
             post_form = PostModelForm(request.POST, instance=post)
             if post_form.is_valid():
                 post_form.save()
+                # update HashTag
+                post.tags.clear()  # 기존의 tag 다 날리기!
+                content = post_form.cleaned_data.get('content')
+                words = content.split()  # 띄어쓰기 기준으로 split
+                for word in words:
+                    if word[0] == '#' and len(word) <= 21:
+                        word = word[1:]
+                        tag = HashTag.objects.get_or_create(content=word)  # (HashTag objects, True or False)
+                        post.tags.add(tag[0])
+                        if tag[1]:  # tag가 처음 만들어진 거라면
+                            messages.add_message(request, messages.SUCCESS, f'"#{tag[0].content}"를 처음으로 추가하셨어요! XD')
                 return redirect('posts:post_list')
         else:
             post_form = PostModelForm(instance=post)
@@ -91,7 +116,7 @@ def comment_create(request, post_id):
         comment.writer = request.user
         comment.post = post
         comment.save()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/insta/'))
+        return HttpResponseRedirect(request.META.get('HTTP_R    EFERER', '/insta/'))
     # return render(request, 'posts/form.html', {
 
     #     'comment_form': comment_form,
@@ -118,3 +143,12 @@ def toggle_like(request, post_id):
 #         post.like_users.remove(user)
 #
 #     pass
+
+@require_GET
+def tag_posts_list(request, tag_name):
+    tag = get_object_or_404(HashTag, content=tag_name)
+    posts = tag.posts.all()
+    comment_form = CommentModelForm()
+    pages = '#' + tag.content
+    context = {'posts': posts, 'comment_form': comment_form, 'pages': pages}
+    return render(request, 'posts/list.html', context)

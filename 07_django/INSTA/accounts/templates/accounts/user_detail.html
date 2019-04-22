@@ -8,6 +8,31 @@
         <div class="col-8">
             <h1>{{ user_info.username }}</h1>
             <div>
+                {% if user_info.followings.all %}
+                    <p>followings({{ user_info.followings.count }})</p>
+                    <ul>
+                    {% for following in user_info.followings.all %}
+                        <li><a href="{% url 'accounts:user_detail' username=following.username %}">{{ following.username }}</a></li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div>
+                {% if user_info.followers.all %}
+                    <p>followers({{ user_info.followers.count }})</p>
+                    <ul>
+                    {% for follower in user_info.followers.all %}
+                        <li>
+                            <a href="{% url 'accounts:user_detail' username=follower.username %}">{{ follower.username }}</a>
+                        </li>
+
+                    {% endfor %}
+
+                    </ul>
+
+                {% endif %}
+            </div>
+            <div>
                 {% if user != user_info %}
                     <form action="{% url 'accounts:toggle_follow' username=user_info.username %}" method="POST">
                     {% csrf_token %}
@@ -22,7 +47,6 @@
                 {% endif %}
             </div>
         </div>
-
     </div>
     <div class="card-columns">
             {% for post in user_info.post_set.all %}

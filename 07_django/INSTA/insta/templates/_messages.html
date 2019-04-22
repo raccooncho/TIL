@@ -1,0 +1,9 @@
+{% load bootstrap4 %}
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            {% bootstrap_alert message alert_type=message.tags%}
+        {% endfor %}
+    </ul>
+{% endif %}
