@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body {
+            background: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const userName = prompt('Hello! Who are you?');
+        let message = '';
+
+        if (userName === '1q2w3e4r') {
+            message = '<h1> This is secret Admin Page </h1>';
+        }
+        else if (userName === 'raccooncho') {
+            message = '<h1> Hello Master </h1>';
+        }
+        else {
+            message = `<h1> Hello! ${userName} </h1>`;
+        }
+        document.write(message);
+    </script>
+</body>
+</html>
