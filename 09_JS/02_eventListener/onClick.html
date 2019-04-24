@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TITLE</title>
+</head>
+<body>
+    <button id="this-button">Click me</button>
+    <ul id="my">
+
+    </ul>
+
+    <script>
+        // 왜 script 태그는 맨 밑에 두나요?
+        /*
+            [무엇]을 [언제] [어떻게]
+            버튼을 클릭하면 뿅
+         */
+        // 1. 무엇 => 버튼
+        const area = document.querySelector('#my');
+        const button = document.querySelector('#this-button');
+        // 2. 언제 => 클릭하면
+        button.addEventListener('click', e => {
+            // 3. 어떻게 => 뿅
+            // document.write('<h1>뿅</h1>')
+
+            // if (confirm('뿅?')){
+            //     area.innerHTML += '<li>뿅!</li>'
+            // }
+            const input = prompt('What?');
+            area.innerHTML += `<li>${input}</li>`;
+
+        });
+    </script>
+</body>
+</html>
