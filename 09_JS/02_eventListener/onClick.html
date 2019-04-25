@@ -31,6 +31,15 @@
             area.innerHTML += `<li>${input}</li>`;
 
         });
+        const searchBar = document.querySelector('#searchbar');
+        searchBar.addEventListener('change', e => {
+            const XHR = new XMLHttpRequest();
+            XHR.open('GET', GOOGLE_SEARCH_URL + searchBar.value);
+            XHR.send();
+            XHR.addEventListener('load', e => {
+                e.target.response
+            })
+        })
     </script>
 </body>
 </html>

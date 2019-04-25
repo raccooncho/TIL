@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <!-- Semantic UI -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <!-- button style -->
+    <style>
+        #reverse_btn {
+            position: fixed;
+            top: 86vh;
+            left: 80vw;
+            z-index: 1;
+        }
+        #fetch_btn {
+            position: fixed;
+            top: 90vh;
+            left: 80vw;
+            z-index: 1;
+        }
+        #clear_btn {
+            position: fixed;
+            top: 82vh;
+            left: 80vw;
+            z-index: 1;
+        }
+        .completed-label {
+            text-decoration: line-through;
+        }
+        .delete-icon {
+            position: absolute;
+            right: 1em;
+            cursor: pointer;
+        }
+    </style>
+    <title>Todo App</title>
+</head>
+
+<body>
+<div class="ui text container">
+    <!-- Header -->
+    <div class="ui placeholder segment">
+        <div class="ui icon header"><i aria-hidden="true" class="checkmark icon"></i>
+            <div class="ui action input">
+                <input id="add_todo_input" placeholder="Add todo here..." type="text" value="">
+                <button id="add_todo_btn" class="ui teal button">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <button id="clear_btn" class="ui green button">Clear all</button>
+    <button id="fetch_btn" class="ui yellow button">Dummy Data</button>
+    <button id="reverse_btn" class="ui orange button">Reverse</button>
+
+    <!-- Card -->
+    <div id="todo_box" class="ui container">
+
+    </div>
+
+</div>
+</body>
+<script src="main.js"></script>
+
+</html>
