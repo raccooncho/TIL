@@ -116,7 +116,7 @@ def comment_create(request, post_id):
         comment.writer = request.user
         comment.post = post
         comment.save()
-        return HttpResponseRedirect(request.META.get('HTTP_R    EFERER', '/insta/'))
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/insta/'))
     # return render(request, 'posts/form.html', {
 
     #     'comment_form': comment_form,
