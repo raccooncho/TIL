@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>caesarCipher</title>
+</head>
+<body>
+<div>
+    <label for="user-input">origin</label>
+    <input autofocus type="text" id="user-input">
+</div>
+<div>
+    <label for="user-n">n</label>
+    <input type="text" id="user-n">
+</div>
+
+<h1 id="user-output">
+
+</h1>
+<script>
+    const inputArea = document.querySelector('#user-input');
+    const resultArea = document.querySelector('#user-output');
+    const putArea = document.querySelector('#user-n');
+    function changeChar(char, n) {
+        resultArea.innerHTML = '';
+        if (Number.isInteger(Number(n))) {
+            n = Number(n);
+            for (let ch of char) {
+                resultArea.innerHTML += String.fromCharCode(ch.charCodeAt() + n);
+            }
+        } else {
+            resultArea.innerHTML = char;
+        }
+        // const resultString = char.map(ch => String.fromCharCode(ch.charCodeAt() + n)).join('');
+    }
+    inputArea.addEventListener('input', e => {
+        changeChar(inputArea.value, putArea.value);
+    });
+    putArea.addEventListener('input', e => {
+        changeChar(inputArea.value, putArea.value);
+    });
+
+</script>
+</body>
+</html>

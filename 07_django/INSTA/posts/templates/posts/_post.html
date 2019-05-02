@@ -22,7 +22,8 @@
     {% endif %}
     <div class="card-body">
         <p class="card-text">{{ post.content }}</p>
-        <p class="card-text">writer : <a href="{% url 'accounts:user_detail' username=post.writer.username %}">{{ post.writer.username }}</a></p>
+        <p class="card-text">writer : <a
+                href="{% url 'accounts:user_detail' username=post.writer.username %}">{{ post.writer.username }}</a></p>
 
 
         {% if post.writer_id == user.id %}
@@ -30,19 +31,38 @@
         {% endif %}
     </div>
     <div class="card-body">
-        <form action="{% url 'posts:toggle_like' post_id=post.id %}" method="POST">
-            {% csrf_token %}
-            {% if user in post.like_users.all %}
-                <input type="submit" class="btn btn-dark" value="{{ post.like_users.count }}">
-            {% else %}
-                 <input type="submit" class="btn btn-secondary" value="{{ post.like_users.count }}">
-            {% endif %}
-        </form>
+        {#    좋아요 버튼 1 #}
+{#        <form action="{% url 'posts:toggle_like' post_id=post.id %}" method="POST">#}
+{#            {% csrf_token %}#}
+{#            {% if user in post.like_users.all %}#}
+{#                <input type="submit" class="btn btn-dark" value="{{ post.like_users.count }}">#}
+{#            {% else %}#}
+{#                <input type="submit" class="btn btn-secondary" value="{{ post.like_users.count }}">#}
+{#            {% endif %}#}
+{#        </form>#}
+        {#    좋아요 버튼 2 #}
+        {% if user in post.like_users.all %}
+            <i class="like-button far fa-thumbs-up fa-2x activate" data-id="{{ post.id }}"> </i>
+            <p class="card-text">좋아요 : <span class="strong-like" id="like-count-{{ post.id }}">{{ post.like_users.count }}</span> 개</p>
+        {% else %}
+            <i class="like-button far fa-thumbs-up fa-2x deactivate" data-id="{{ post.id }}"> </i>
+            <p class="card-text">좋아요 : <span id="like-count-{{ post.id }}">{{ post.like_users.count }}</span> 개</p>
+        {% endif %}
+
+        {#        <button class="like-button" data-id="{{ post.id }}" data-user="{{ post.writer }}">#}
+        {#            {% if user in post.like_users.all %}#}
+        {#                Dislike#}
+        {#            {% else %}#}
+        {#                Like#}
+        {#            {% endif %}#}
+        {#        </button>#}
+
     </div>
     <div class="card-body">
         <p class="card-text">
             {% for comment in post.comment_set.all %}
-                <a href="{% url 'accounts:user_detail' username=comment.writer.username %}"><strong>{{ comment.writer.username }}</strong></a> : {{ comment.content }}<br>
+                <a href="{% url 'accounts:user_detail' username=comment.writer.username %}"><strong>{{ comment.writer.username }}</strong></a>
+                : {{ comment.content }}<br>
             {% empty %}
                 No Comments
             {% endfor %}

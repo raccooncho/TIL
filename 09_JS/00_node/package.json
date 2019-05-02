@@ -1,0 +1,15 @@
+{
+  "name": "rlc-raccoon",
+  "version": "0.0.1",
+  "description": "Raccoon Like Cat",
+  "main": "main.js",
+  "dependencies": {
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CHO SEONG KYU",
+  "license": "ISC"
+}

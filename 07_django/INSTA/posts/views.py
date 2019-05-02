@@ -4,6 +4,7 @@ from django.views.decorators.http import require_http_methods, require_GET, requ
 from .forms import PostModelForm, ImageModelForm, CommentModelForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import JsonResponse, HttpResponseBadRequest
 
 
 # Create your views here.
@@ -127,13 +128,21 @@ def comment_create(request, post_id):
 @login_required
 @require_POST
 def toggle_like(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-    user = request.user
-    if user in post.like_users.all():
-        post.like_users.remove(user)
+    if request.is_ajax():
+        post = get_object_or_404(Post, id=post_id)
+        user = request.user
+        is_active = True
+        if user in post.like_users.all():
+            post.like_users.remove(user)
+            is_active = False
+        else:
+            post.like_users.add(user)
+        return JsonResponse({
+            'likeCount': post.like_users.count(),
+            'is_active': is_active,
+        })
     else:
-        post.like_users.add(user)
-    return redirect('posts:post_list')
+        return HttpResponseBadRequest()
 
 
 # def delete_like(request, post_id):
