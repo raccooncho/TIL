@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .safe-spot {
+            color: white;
+            background-color: cornflowerblue;
+            height: 10rem;
+            padding: 2rem;
+        }
+
+        .dead-spot {
+            color: white;
+            background-color: darkred;
+            height: 4rem;
+            margin: 2rem;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button v-on:click="counter++">up</button>
+    <button v-on:click="down($event, 3)">down</button>
+    <p>{{ counter * 2 > 10 ? 'n>10' : 'n<=10' }}</p>
+
+    <ul>
+        <li v-for="number in numbers.map(num => num * 2)">
+            {{ number }}
+        </li>
+    </ul>
+
+    <div>
+        <input type="text" v-on:keyup.enter="alertMe">
+    </div>
+
+    <table>
+        <tr>
+            <th>X coord</th>
+            <th>Y coord</th>
+        </tr>
+        <tr>
+            <th>{{ x }}</th>
+            <th>{{ y }}</th>
+        </tr>
+    </table>
+    <div class="safe-spot" v-on:mousemove="getMouseCoord">
+        Safe Zone
+        <div class="dead-spot" v-on:mouseover="stop">
+            DANGER!
+        </div>
+    </div>
+</div>
+<script src="./vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            x: 0,
+            y: 0,
+            numbers: [1, 2, 3, 4, 5],
+
+        },
+        methods: {
+            up() {
+                this.counter++;
+            },
+            down(e, n) {
+                this.counter -= n * e.clientX;
+            },
+            getMouseCoord(e) {
+                this.x = e.clientX;
+                this.y = e.clientY;
+
+            },
+            stop() {
+                alert('유다희');
+                this.counter++;
+            },
+            alertMe(e) {
+                // e.stopPropagation();
+                // e.preventDefault();
+                if (e.key === 'Enter') {
+                    alert('Hey!');
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

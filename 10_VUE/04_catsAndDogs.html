@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <style>
+        .animal {
+            max-width: 0.25vw;
+            display: inline-block;
+            max-height: 0.5vw;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button v-on:click="getDogImage(); playSound('./bark.mp3')">멍 - {{ dogCount }}</button>
+    <button v-on:click="getCatImage()">냥 - {{ catCount }}</button>
+    <br>
+    <!--    <img v-bind:src="image" alt="cat-or-dog">-->
+    <div class="card-columns">
+        <div v-for="image in images" class="card">
+            <img v-bind:src="image" alt="cat-or-dog" class="card-img-top">
+            <div class="card-body">
+                <div class="card-title">
+                    멍냥
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            image: '',
+            images: [],
+            catCount: 0,
+            dogCount: 0,
+        },
+        methods: {
+            getDogImage() {
+                const URL = 'https://dog.ceo/api/breeds/image/random';
+                axios.get(URL)
+                    .then(response => this.images.push(response.data.message))
+                    .then(() => this.dogCount++)
+                    .catch(error => {
+                            console.error(error);
+                            alert('Error!');
+                        }
+                    )
+                // {
+                //     this.image = response.data.message;
+                // })
+            },
+            async getCatImage() {
+                try {
+                    const URL = 'https://api.thecatapi.com/v1/images/search';
+                    const response = await axios.get(URL);
+                    this.images.push(response.data[0].url);
+                    this.catCount++;
+                } catch (error) {
+                    console.log(error);
+                }
+
+                // axios.get(URL)
+                //     .then(response => this.images.push(response.data[0].url))
+                //     .then(() => this.catCount++);
+
+                // {
+                //     this.image = response.data[0].url;
+                // })
+            },
+            playSound(src) {
+                if (srC) {
+                    const audio = new Audio(src);
+                    audio.play();
+                }
+            },
+            
+        }
+    })
+</script>
+</body>
+</html>
