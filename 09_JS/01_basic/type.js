@@ -1,0 +1,10 @@
+console.log(typeof 1);
+console.log(typeof (typeof 1));
+console.log(typeof(() => {}));
+console.log(typeof (function() {}));
+console.log(typeof NaN);
+console.log(typeof Infinity);
+console.log(typeof undefined);
+console.log(typeof null);
+console.log(typeof {});
+console.log(typeof []);

@@ -48,3 +48,9 @@ console.log(numbersEach([1, 2, 3, 4, 5], muler));
 
 numbersEach([1, 2, 3, 4, 5], (number, sum = 0) => sum -= number );
 
+function myFunc () {
+    return n => n + 1;
+}
+
+const num_101 = myFunc()(100);
+console.log(num_101);

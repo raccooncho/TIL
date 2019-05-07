@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{ title }}</h1>
+    <input type="text" v-model="question">
+    <p>{{ answer }}</p>
+    <img :src="image" alt="yes or no">
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./vue.js"> </script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            title: 'Ask me',
+            question: '',
+            answer: '',
+            image: '',
+        },
+        methods: {
+            getAnswer() {
+                if (this.question[this.question.length - 1] !== '?') {
+                    this.answer = '물음표를 찍으면 답을 알려줌.'
+                } else {
+                const URL = 'https://yesno.wtf/api';
+                axios.get(URL)
+                    .then(res => {
+                        this.answer = res.data.answer;
+                        this.image = res.data.image;
+                    });
+                }
+            }
+        },
+        computed: {
+
+        },
+        watch: {
+            question: function () {
+                this.getAnswer();
+            }
+        }
+    })
+</script>
+</body>
+</html>
