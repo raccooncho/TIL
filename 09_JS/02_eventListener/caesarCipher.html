@@ -22,14 +22,14 @@
     const resultArea = document.querySelector('#user-output');
     const putArea = document.querySelector('#user-n');
     function changeChar(char, n) {
-        resultArea.innerHTML = '';
-        if (Number.isInteger(Number(n))) {
-            n = Number(n);
-            for (let ch of char) {
-                resultArea.innerHTML += String.fromCharCode(ch.charCodeAt() + n);
-            }
-        } else {
-            resultArea.innerHTML = char;
+                resultArea.innerHTML = '';
+                if (Number.isInteger(Number(n))) {
+                    n = Number(n);
+                    for (let ch of char) {
+                        resultArea.innerHTML += String.fromCharCode(ch.charCodeAt() + n);
+                    }
+                } else {
+                    resultArea.innerHTML = char;
         }
         // const resultString = char.map(ch => String.fromCharCode(ch.charCodeAt() + n)).join('');
     }

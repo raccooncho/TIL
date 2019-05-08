@@ -1,12 +1,12 @@
 // rest operator 이 없다면
 
 function addAll(a, b, c, d, e) {
-    const numbers = [a, b, c, d, e];
-    let acc = 0
-    for (const number of numbers) {
-        acc += number;
-    }
-    return acc;
+        const numbers = [a, b, c, d, e];
+        let acc = 0
+        for (const number of numbers) {
+            acc += number;
+        }
+        return acc;
 }
 
 // rest operator 이 있다면

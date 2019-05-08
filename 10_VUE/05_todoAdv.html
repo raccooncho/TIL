@@ -22,44 +22,34 @@
     <br>
     <button @click="clearCompleted()">Clear Completed</button>
     <ol v-if="todos.length">
-        <li v-for="todo in groupTodosByStatus()" :class="todo.completed ? 'completed' : '' " :key="todo.id">
+        <li v-for="todo in groupTodosByStatus" :class="todo.completed ? 'completed' : '' " :key="todo.id">
             <span>{{ todo.content }}</span>
             <input type="checkbox" v-model="todo.completed">
         </li>
-        <li v-else @click="check(todo)"> [완료!]</li>
+<!--        <li v-else @click="check(todo)"> [완료!]</li>-->
     </ol>
 
 </div>
-<script src="./vue.js"></script>
+<!--<script src="./vue.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.common.dev.js"></script>
 <script>
-    new Vue({
+    const STORAGE_KEY = 'my-todos';
+    const todosApp = {
+        storageKey: 'my-todos',
+        fetch: function () {
+            return JSON.parse(localStorage.getItem(this.storageKey)) || [];
+        },
+        save (todos) {
+            localStorage.setItem(this.storageKey, JSON.stringify(todos));
+        }
+    };
+
+    const app = new Vue({
         el: '#app',
         data: {
-            todos: [
-                {
-                    id: 1,
-                    content: '저녁 메뉴 고민하기',
-                    completed: true
-                },
-                {
-                    id: 2,
-                    content: '시험 공부 하기',
-                    completed: false
-                },
-                {
-                    id: 3,
-                    content: '집 살 걱정하기',
-                    completed: false
-                },
-                {
-                    id: 4,
-                    content: '행복하기',
-                    completed: false
-                },
-            ],
+            todos: todosApp.fetch(),
             newTodo: '',
-            status: 'all',
-            ID : 5,
+            status: 'all'
         },
         methods: {
             check: function (todo = {}) {
@@ -68,30 +58,36 @@
             addTodo() {
                 if (this.newTodo) {
                     this.todos.push({
-                        id: this.ID++,
+                        id: Date.now(),
                         content: this.newTodo,
                         completed: false
                     });
-
                     this.newTodo = '';
                 }
             },
             clearCompleted() {
                 this.todos = this.todos.filter(todo => !todo.completed);
             },
+
+        },
+        computed: {
             groupTodosByStatus() {
                 if (this.status === 'active') {
-                        return this.todos.filter(todo => !todo.completed);
+                    return this.todos.filter(todo => !todo.completed);
                 } else if (this.status === 'completed') {
                     return this.todos.filter(todo => todo.completed);
                 } else {
                     return this.todos;
                 }
             },
-
         },
-        computed: {
-
+        watch: {
+            todos: {
+                deep: true,
+                handler: function (todos) {
+                    todosApp.save(todos)
+                }
+            },
         }
     })
 </script>

@@ -57,4 +57,4 @@ function sayHello (name) {
 }
 const sayHello = (name = 'ssafy' )=> `hi ${name}!`;
 
-(num => num ** 2)(4)    // 16
+(num => num ** 2)(4);  // 16
