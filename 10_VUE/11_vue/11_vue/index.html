@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+</head>
+<body>
+<div id="app" class="container-fluid">
+    <!--NavBar-->
+    <nav class="navbar navbar-light bg-white fixed-top flex-md-nowrap">
+        <span class="navbar-brand col-md-2 pr-3" v-html="logo"></span>
+        <input class="form-control form-control-dark w-100 mr-3" type="text" placeholder="Search" aria-label="Search" v-model="search">
+    </nav>
+
+    <!--Sidebar & Content-->
+    <div class="row mt-5">
+
+        <!--Sidebar-->
+        <aside class="col-md-2 d-none d-md-block sidebar">
+            <nav class="sidebar-sticky mt-2">
+                <ul class="nav flex-column">
+                    <li class="nav-item mt-2">
+                        <button class="btn btn-outline-success btn-block" @click="getMovies()">전체 보기</button>
+                    </li>
+                    <li class="nav-item mt-2">
+                        <button @click="orderMovies('audience', asc)" class="btn btn-outline-success btn-block">{{ asc ? "관객 많은 순서" : "관객 적은 순서" }}</button>
+                    </li>
+                </ul>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>장르별 보기</span>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item mt-2" v-for="genre in genres">
+                        <button class="btn btn-outline-secondary btn-block" @click="getMovies(genre.id)">{{ genre.name }}</button>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!--Content-->
+        <section v-show="!movies.length" class="jumbotron">
+            <h1 class="display-4">No Movies in this Page</h1>
+            <p class="lead">I don't know what to do. <br>
+                No Movies in this Page</p>
+        </section>
+        <section class="col-md-10 d-none d-md-block">
+            <div>
+                <!--movie detail-->
+                <section v-show="isDetail" class="mt-3 mb-5 container">
+                    <header class="row">
+                        <h1 class="my-4 col-9">{{ movieDetail.title }}</h1>
+                        <div class="col-3 m-auto">
+                            <button class="btn btn-danger" @click="toggleDetail()">뒤로가기</button>
+                        </div>
+                    </header>
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img class="img-fluid" :src="movieDetail.poster_url" :alt="`${movieDetail.title} - poster`">
+                        </div>
+
+                        <div class="col-md-8">
+                            <h2 class="my-3">평점</h2>
+                            <p>{{ movieDetail.averageScore ? movieDetail.averageScore : 0 }}</p>
+                            <h3 class="my-3">리뷰</h3>
+                            <form>
+                                <label for="review">리뷰를 남겨주세요: </label>
+                                <input v-model="inputScore.content" id="review" type="text">
+                                <select v-model="inputScore.score">
+                                    <option v-for="i in 11" :value="i - 1">{{ i - 1 }}</option>
+                                </select>
+                                <button @click="postScore(movieDetail.id)">남기기</button>
+                            </form>
+                            <ul>
+                                <li v-for="score in scores">{{ score.content }} - score: <strong>{{ score.score }}</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-8 ">
+                            <p>
+                                {{ movieDetail.description }}
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!--movie list-->
+                <section v-show="!isDetail" class="card-columns mt-3 container">
+                    <article class="card" v-for="movie in movies">
+                        <img class="card-img-top" :src="movie.poster_url" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">영화 제목 : {{ movie.title }}</h5>
+                            <p class="card-text">영화 평점 평균 : {{ movie.averageScore ? movie.averageScore : 0 }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">영화 누적 관객 : {{ movie.audience }}</small>
+                            </p>
+                            <button class="btn btn-primary" @click="toggleDetail(movie.id)">영화 상세보기</button>
+                        </div>
+                    </article>
+
+                </section>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer font-small pt-4">
+    <div class="container-fluid text-center text-md-left">
+        <div class="row">
+            <div class="col-md-6 mt-md-0 mt-3">
+                <h5 class="text-uppercase">Footer Content</h5>
+                <p>프로젝트에 대한 정보를 작성하세요</p>
+            </div>
+            <hr class="clearfix w-100 d-md-none pb-3">
+            <div class="col-md-3 offset-md-3 mb-md-0 mb-3">
+                <h5 class="text-uppercase">Links</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#!">Link 1</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright text-center py-3">© 2019 Copyright:
+        <a href="#">hphk x ssafy</a>
+    </div>
+</footer>
+
+<script src="./js/axios.js"></script>
+<script src="./js/vue.js"></script>
+<script src="./js/main.js"></script>
+</body>
+</html>
