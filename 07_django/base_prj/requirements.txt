@@ -1,7 +1,7 @@
 backcall==0.1.0
 colorama==0.4.1
 decorator==4.3.2
-Django==2.1.5
+Django==2.2.13
 django-extensions==2.1.5
 ipython==7.2.0
 ipython-genutils==0.2.0
